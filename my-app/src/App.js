@@ -19,8 +19,16 @@ function App() {
           Learn React
         </a>
       </header>
+      <button id = "bb" onClick = {dothing}> Hi </button>
     </div>
   );
+}
+
+
+
+function dothing() {
+  document.getElementById("bb").style.color = "red";
+  console.log("here");
 }
 
 export default App;
