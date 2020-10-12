@@ -10,7 +10,8 @@ function Home() {
       </header>
       <p> This is our project. </p>
       <p> List of movies goes here. </p>
-      <button onclick = "goToProfile()"> My Profile </button>
+      <button onClick = {goToProfile}> My Profile </button>
+      <button onClick = {link}> test </button>
     </div>
   );
 }
@@ -18,6 +19,20 @@ function Home() {
 function goToProfile() {
     console.log('clicked')
     return Profile();
+}
+
+function link() {
+    function handleClick(e) {
+        e.preventDefault();
+        console.log('The link was clicked.');
+    }
+    console.log('here')
+
+    return (
+        <button onClick={handleClick}>
+        Click me
+        </button>
+    );
 }
 
 export default Home;
