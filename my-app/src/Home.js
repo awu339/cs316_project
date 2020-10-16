@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import Profile from './Profile.js';
-import history from './history.js';
+import Profile from './Profile';
 import { Button } from 'react-bootstrap';
 import {
   Route,
@@ -17,15 +16,14 @@ class Home extends React.Component{
   }
   render() {
   return (
-
-   
     <div className="Home">
       <header className="Home-header">
         <h1> MovieDB </h1>
-          
       </header>
       <p> This is our project. </p>
       <p> List of movies goes here. </p>
+      <div className="movies">
+      </div>
       <Button variant="btn btn-success" onClick = {this.goToProfile} > My Profile </Button>
     </div>
   );

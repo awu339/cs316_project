@@ -1,5 +1,5 @@
-var express = require('express');
-var mysql = require('mysql');
+var express = require('../../../Library/Caches/typescript/2.9/node_modules/@types/express');
+var mysql = require('../../../Library/Caches/typescript/2.9/node_modules/@types/mysql');
 var app = express();
 
 var con = mysql.createConnection({
