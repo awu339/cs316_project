@@ -1,38 +1,40 @@
 import React from 'react';
 import './App.css';
 import Profile from './Profile.js';
+import history from './history.js';
+import { Button } from 'react-bootstrap';
+import {
+  Route,
+  NavLink, 
+  HashRouter
+} from "react-dom";
 
-function Home() {
+
+
+class Home extends React.Component{
+  constructor() {
+    super();
+  }
+  render() {
   return (
+
+   
     <div className="Home">
       <header className="Home-header">
         <h1> MovieDB </h1>
+          
       </header>
       <p> This is our project. </p>
       <p> List of movies goes here. </p>
-      <button onClick = {goToProfile}> My Profile </button>
-      <button onClick = {link}> test </button>
+      <Button variant="btn btn-success" onClick = {this.goToProfile} > My Profile </Button>
     </div>
   );
 }
 
-function goToProfile() {
+goToProfile() {
     console.log('clicked')
-    return Profile();
+    return new Profile();
 }
-
-function link() {
-    function handleClick(e) {
-        e.preventDefault();
-        console.log('The link was clicked.');
-    }
-    console.log('here')
-
-    return (
-        <button onClick={handleClick}>
-        Click me
-        </button>
-    );
 }
 
 export default Home;
