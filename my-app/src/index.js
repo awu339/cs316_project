@@ -9,32 +9,14 @@ import * as serviceWorker from './serviceWorker';
 import {Navbar, Nav, NavLink} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, BrowserRouter } from 'react-router-dom';
+import { Router, Switch, Route } from "react-router-dom";
 
 
 ReactDOM.render(
   <React.StrictMode>
-  <BrowserRouter>
-  <Navbar bg="dark" varient="light">
-  <Nav.Item>
-    <BrowserRouter>
-    <Link to="/">Home</Link>
-    </BrowserRouter>
-  
-  </Nav.Item>
-  <Nav.Item>
-    <BrowserRouter>
-    <Link to="/Profile">Profile</Link>
-    </BrowserRouter>
-    
-  </Nav.Item>
-  <Nav.Item>
-    <NavLink activeClassName="active" to="/Favorites">Favorites</NavLink>
-  </Nav.Item>
-  </Navbar>
 
-    <Home />
+    <App />
     
-    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

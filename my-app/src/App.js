@@ -1,34 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Nav from './Nav';
+import Home from './Home';
+import Favorites from './Favorites';
+import Movies from './Movies';
+import Profile from './Profile';
+import Search from './Search';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. 
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <button id = "bb" onClick = {dothing}> Hi </button>
-    </div>
+    <Router>
+      <div className="App">
+          <Nav />
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/favorites" component={Favorites}/>
+            <Route path="/movies" component={Movies}/>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/search" component={Search}/>
+          </Switch>
+      </div>
+    </Router>
   );
 }
 
 
-
-function dothing() {
-  document.getElementById("bb").style.color = "red";
-  console.log("here");
-}
 
 export default App;
