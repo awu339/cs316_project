@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);
@@ -10,25 +9,21 @@ function Movies() {
     Axios.get("http://localhost:3001/api/getmovies")
     .then((response) => {
       setMovieList(response.data);
-    }); 
+    });
   }, []);
 
   return (
     <div>
       <h1>Movies</h1>
-      {movieList.map((val) => {
-        return (
         <p>
-          <li> <Link to="/MoviePage">ID: {val.movieid}</Link></li> |
           Movie: {val.name} |
           Year: {val.year}
         </p>
         );
-      })}
     </div>
 
-    
+
   );
 }
 
-export default Movies;
+export default MoviePage;

@@ -29,6 +29,11 @@ app.get("/api/getmovies", (req, res) => {
     });
 });
 
+app.get("/api/getmov", (req, res) => {
+
+});
+}
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;
