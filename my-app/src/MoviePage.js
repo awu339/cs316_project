@@ -15,18 +15,15 @@ function Movies() {
   return (
     <div>
       <h1>Movies</h1>
-      {movieList.map((val) => {
-        return (
         <p>
-          Movie: <button>{val.name} </button> |
+          Movie: {val.name} |
           Year: {val.year}
         </p>
         );
-      })}
     </div>
 
     
   );
 }
 
-export default Movies;
+export default MoviePage;
