@@ -29,6 +29,13 @@ app.get("/api/getmovies", (req, res) => {
     });
 });
 
+app.get("/api/getfavorites", (req, res) => {
+    const sqlSect = "SELECT movieid FROM Favorites WHERE userid = 1;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;
