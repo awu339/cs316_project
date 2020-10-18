@@ -8,13 +8,7 @@ import {
   HashRouter
 } from "react-dom";
 
-
-
-class Home extends React.Component{
-  constructor() {
-    super();
-  }
-  render() {
+function Home() {
   return (
     <div className="Home">
       <header className="Home-header">
@@ -25,6 +19,10 @@ class Home extends React.Component{
       <div className="movies">
       </div>
       <Button variant="btn btn-success" onClick = {this.goToProfile} > My Profile </Button>
+      <div>
+        <h1>Home</h1>
+      
+      </div>
     </div>
   );
 }
@@ -32,7 +30,6 @@ class Home extends React.Component{
 goToProfile() {
     console.log('clicked')
     return new Profile();
-}
 }
 
 export default Home;

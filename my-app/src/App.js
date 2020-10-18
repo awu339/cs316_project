@@ -1,6 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
+import Nav from './Nav';
+import Home from './Home';
+import Favorites from './Favorites';
+import Movies from './Movies';
+import Profile from './Profile';
+import Search from './Search';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
 
@@ -40,75 +48,83 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Make a new user</h1>
+    <Router>
+      <div className="App">
+          <Nav />
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/favorites" component={Favorites}/>
+            <Route path="/movies" component={Movies}/>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/search" component={Search}/>
+          </Switch>
 
-      <div className="form">
-        <label>UserID:</label>
-        <input 
-          type="text" 
-          name="userID" 
-          onChange={(e)=> {
-            setUserID(e.target.value)
-          }} 
-        />
-        <label>Username:</label>
-        <input 
-          type="text" 
-          name="username" 
-          onChange={(e)=> {
-            setUsername(e.target.value)
-          }} 
-        />
-        <label>Password:</label>
-        <input 
-          type="text" 
-          name="pwd" 
-          onChange={(e)=> {
-            setPwd(e.target.value)
-          }} 
-        />
-        <label>Type:</label>
-        <input 
-          type="text" 
-          name="type" 
-          onChange={(e)=> {
-            setType(e.target.value)
-          }} 
-        />
-        <label>Date:</label>
-        <input 
-          type="text" 
-          name="date" 
-          onChange={(e)=> {
-            setDate(e.target.value)
-          }} 
-        />
-        <button onClick = {submitUser}>Submit</button>
+          <h1>Make a new user</h1>
+          <div className="form">
+            <label>UserID:</label>
+            <input 
+              type="text" 
+              name="userID" 
+              onChange={(e)=> {
+                setUserID(e.target.value)
+              }} 
+            />
+            <label>Username:</label>
+            <input 
+              type="text" 
+              name="username" 
+              onChange={(e)=> {
+                setUsername(e.target.value)
+              }} 
+            />
+            <label>Password:</label>
+            <input 
+              type="text" 
+              name="pwd" 
+              onChange={(e)=> {
+                setPwd(e.target.value)
+              }} 
+            />
+            <label>Type:</label>
+            <input 
+              type="text" 
+              name="type" 
+              onChange={(e)=> {
+                setType(e.target.value)
+              }} 
+            />
+            <label>Date:</label>
+            <input 
+              type="text" 
+              name="date" 
+              onChange={(e)=> {
+                setDate(e.target.value)
+              }} 
+            />
+            <button onClick = {submitUser}>Submit</button>
       
-        {userList.map((val) => {
-          return (
-          <p>
-            Username: {val.username} |
-            Date created: {val.date_created}
-          </p>
-          );
-        })}
+            {userList.map((val) => {
+              return (
+              <p>
+                Username: {val.username} |
+                Date created: {val.date_created}
+              </p>
+              );
+            })}
 
-        {movieList.map((val) => {
-          return (
-          <p>
-            Movie: {val.name} |
-            Year: {val.year}
-          </p>
-          );
-        })}
-       
-      </div>
+            {movieList.map((val) => {
+              return (
+              <p>
+                Movie: {val.name} |
+                Year: {val.year}
+              </p>
+              );
+            })}
+          </div>
+        </div>
+    </Router>
 
-    </div>
   );
 }
-
 
 export default App;
