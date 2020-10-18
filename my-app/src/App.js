@@ -9,8 +9,25 @@ function App() {
   const [pwd, setPwd] = useState('');
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
+  const [userList, setUserList] = useState([]);
+  const [movieList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/getusers")
+    .then((response) => {
+      setUserList(response.data);
+    }); 
+  }, []);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/getmovies")
+    .then((response) => {
+      setMovieList(response.data);
+    }); 
+  }, []);
 
   const submitUser = () => {
+    console.log('here2');
     Axios.post('http://localhost:3001/api/insert', {
       userID: userID, 
       username: username, 
@@ -19,7 +36,7 @@ function App() {
       date: date
     }).then(() => {
       alert("success");
-    })
+    });
   };
 
   return (
@@ -69,6 +86,24 @@ function App() {
         />
         <button onClick = {submitUser}>Submit</button>
       
+        {userList.map((val) => {
+          return (
+          <p>
+            Username: {val.username} |
+            Date created: {val.date_created}
+          </p>
+          );
+        })}
+
+        {movieList.map((val) => {
+          return (
+          <p>
+            Movie: {val.name} |
+            Year: {val.year}
+          </p>
+          );
+        })}
+       
       </div>
 
     </div>

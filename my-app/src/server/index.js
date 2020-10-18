@@ -7,7 +7,7 @@ const cors = require('cors');
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'password',
     database: 'mydb'
 });
 
@@ -15,15 +15,31 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.get("/api/getusers", (req, res) => {
+    const sqlSelect = "SELECT * FROM User;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get("/api/getmovies", (req, res) => {
+    const sqlSelect = "SELECT * FROM Movie;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
 app.post('/api/insert', (req, res) => {
+    console.log('here1');
     const userID = req.body.userID;
     const username = req.body.username;
     const pwd = req.body.pwd;
     const type = req.body.type;
     const date = req.body.date;
 
-    const sqlInsert = "INSERT INTO User VALUES(?, ?, ?, ?, ?)";
+    const sqlInsert = "INSERT INTO User (userID, username, password, type, date_created) VALUES(?, ?, ?, ?, ?)";
     db.query(sqlInsert, [userID, username, pwd, type, date], (err, result) => {
+        console.log('here');
         console.log(result);
         console.log(err);
     });
