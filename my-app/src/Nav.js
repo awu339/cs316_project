@@ -26,6 +26,9 @@ function Nav() {
         <Link style={navStyle} to='/search'>
             <li>Search</li>
         </Link>
+        <Link style={navStyle} to='/newuser'>
+            <li>New User</li>
+        </Link>
         </u1>
     </nav>
   );

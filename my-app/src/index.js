@@ -5,7 +5,6 @@ import App from './App';
 import Home from './Home';
 import Profile from './Profile';
 import Favorites from './Favorites';
-import * as serviceWorker from './serviceWorker';
 import {Navbar, Nav, NavLink} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, BrowserRouter } from 'react-router-dom';
