@@ -7,18 +7,18 @@ function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
   const [movieid, setMovieID] = useState([]);
  
-  const unfavorite = (movieid) => {
-    Axios.delete(`http://localhost:3001/api/delete`, {
-      movieid: movieid
-    });
+  let unfavorite = (movieid) => {
+    console.log("movieid: " + movieid);
+    Axios.get("http://localhost:3001/api/delete?id=" + movieid);
   };
  
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getfavorites")
     .then((response) => {
       setFavoritesList(response.data);
+      console.log(response);
     }); 
-  }, []);  
+  }, []);   
  
   return (
     <div>
@@ -27,12 +27,10 @@ function Favorites() {
       {favoritesList.map((val) => {
         return (
         <p>
-          Movie: {val.name}
-          Year: {val.year}
+          Movie: {val.name} |
+          Year: {val.year} | 
           Synopsis: {val.synopsis}
  <button onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button>
- 
- 
         </p>
         );
       })}
