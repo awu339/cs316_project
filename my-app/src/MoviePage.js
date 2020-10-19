@@ -4,40 +4,46 @@ import Axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function MoviePage() {
-    // console.log("test" + props.location.state);
     const [movieList, setMovieList] = useState([]);
     const [userid, setUserID] = useState('');
     const [movieid, setMovieID] = useState('');
     const [watched, setWatched] = useState('');
+    const [movie, setMovie] = useState([]);
+    const[favorite, setFavorite] = useState([]);
 
 useEffect(() => {
-  Axios.get("http://localhost:3001/api/getmovies")
-  .then((response) => {
-    setMovieList(response.data);
-  }); 
+    console.log("getting one movie");
+    Axios.get("http://localhost:3001/api/getmovie")
+    .then((response) => {
+        setMovie(response.data);
+    })
 }, []);
 
 const addFavorite = (movieid) => {
-    console.log("userid: " + userid);
-    Axios.post("http://localhost:3001/api/insertfavorite/${movieid}").then(() => {
-        alert("success");
-    });
+    Axios.post(`http://localhost:3001/api/insertfavorite`, {
+        movieid: movieid
+    })
+    .then(() => alert('success'));
 };
 
 
 return (
   <div>
     <h1>Movie Page</h1>
-    {movieList.map((val) => {
-        if(val.movieid == 2) {
+    {movie.map((val) => {
         return (
-        <p id = "movieid">
-          Movie: {val.name} |
-          Year: {val.year}
+        <p>
+          <br/> Movie: {val.name} 
+          <br/> Year: {val.year} 
+          <br/> Synopsis: {val.synopsis} 
+          <br/> Platform Name: {val.platform_name}
+          <br/> Platform Cost: {val.platform_cost} 
+          <br/> Director ID: {val.director_id}
+          <br/> <button onClick={addFavorite(val.movieid)}>Add Favorite</button>
         </p>
-        );}
+        );
       })}
-    <button onClick={addFavorite}>Add Favorite</button>
+
   </div>
 );
 }

@@ -29,6 +29,14 @@ app.get("/api/getmovies", (req, res) => {
     });
 });
 
+app.get("/api/getmovie", (req, res) => {
+    const sqlSelect = "SELECT * FROM Movie where movieid = 2;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+        console.log(result);
+    });
+});
+
 app.get("/api/getfavorites", (req, res) => {
     const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
     db.query(sqlSelect, (err, result) => {
@@ -53,14 +61,14 @@ app.post('/api/insert', (req, res) => {
     });
 });
 
-app.post('/api/insertfavorite/:movieid', (req, res) => {
+app.post('/api/insertfavorite', (req, res) => {
     console.log('here fav');
     console.log(req);
     const userID = 1;
     const movieid = req.body.movieid;
     const watched = 1;
 
-    const sqlInsert = "INSERT INTO Favorites (userID, movieid, watched) VALUES(1, movieid, 1)";
+    const sqlInsert = "INSERT INTO Favorites (userID, movieid, watched) VALUES(?, ?, ?)";
     db.query(sqlInsert, [userID, movieid, watched], (err, result) => {
         console.log('here');
         console.log(result);
