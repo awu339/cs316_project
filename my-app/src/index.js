@@ -10,12 +10,13 @@ import {Navbar, Nav, NavLink} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, BrowserRouter } from 'react-router-dom';
 import { Router, Switch, Route } from "react-router-dom";
+import Login from './Login';
 
 
 ReactDOM.render(
   <React.StrictMode>
 
-    <App />
+    <Login />
     
   </React.StrictMode>,
   document.getElementById('root')
