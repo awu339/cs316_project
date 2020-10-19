@@ -4,9 +4,12 @@ import Axios from 'axios';
  
 function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
+  const [movieid, setMovieID] = useState([]);
  
   const unfavorite = (movieid) => {
-    Axios.delete(`http://localhost:3001/api/delete/${movieid}`);
+    Axios.delete(`http://localhost:3001/api/delete`, {
+      movieid: movieid
+    });
   };
  
   useEffect(() => {

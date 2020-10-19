@@ -76,11 +76,13 @@ app.post('/api/insertfavorite', (req, res) => {
     });
 });
 
-app.delete('/api/delete/:movieid', (req, res) => {
+app.delete('/api/delete', (req, res) => {
+    console.log("rjgejrbgergrehg");
     const movieid = req.body.movieid;
- 
-    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ?";
-    db.query(sqlDelete, movieid, (err, result) => {
+    console.log("movieid: " + movieid);
+
+    const sqlDelete = "DELETE FROM Favorites WHERE movieid = 2";
+    db.query(sqlDelete, [movieid], (err, result) => {
         if (err) console.log(err);
     });
 });
