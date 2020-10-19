@@ -71,7 +71,7 @@ function Newuser() {
                 type="text" 
                 name="date" 
                 onChange={(e)=> {
-                setDate(e.target.value)
+                    setDate(e.target.value)
                 }} 
             />
             <button onClick = {submitUser}>Submit</button>
