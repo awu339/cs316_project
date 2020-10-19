@@ -29,7 +29,7 @@ class LoginPage extends Component {
 
             <Form className = "login-form">
                 <h1> 
-                    <span className = "title">my movie list.com</span>
+                    <span className = "title">mymovielist.com</span>
                 </h1>
                 <h2 className = "text-center">Welcome</h2>
                 <FormGroup>

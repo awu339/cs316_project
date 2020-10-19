@@ -34,7 +34,7 @@ function Newuser() {
   return (
     <div>
       <Nav />
-      <h1>Make a new user</h1>
+      <h1>Register new user</h1>
         <div className="form">
             <label>UserID:</label>
             <input 

@@ -22,18 +22,19 @@ useEffect(() => {
 }, []);
 
 const addFavorite = (movieid) => {
+    console.log('adding favorite');
     Axios.post(`http://localhost:3001/api/insertfavorite`, {
         movieid: movieid
     })
     .then(() => alert('success'));
 };
 
-
 return (
   <div>
     <Nav/>
     <h1>Movie Page</h1>
     {movie.map((val) => {
+        console.log("rendering the movie");
         return (
         <p>
           <br/> Movie: {val.name} 
@@ -42,7 +43,7 @@ return (
           <br/> Platform Name: {val.platform_name}
           <br/> Platform Cost: {val.platform_cost} 
           <br/> Director ID: {val.director_id}
-          <br/> <button onClick={addFavorite(val.movieid)}>Add Favorite</button>
+          <br/> <button onClick={() => addFavorite(val.movieid)}>Add Favorite</button>
         </p>
         );
       })}
