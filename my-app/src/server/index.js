@@ -30,15 +30,17 @@ app.get("/api/getmovies", (req, res) => {
 });
 
 app.get("/api/getmovie", (req, res) => {
-    const sqlSelect = "SELECT * FROM Movie where movieid = 2;";
-    db.query(sqlSelect, (err, result) => {
+    let movieid = req.query.id;
+    console.log(req.query)
+    const sqlSelect = "SELECT * FROM Movie where movieid = ?;";
+    db.query(sqlSelect, [movieid], (err, result) => {
         res.send(result);
         console.log(result);
     });
 });
 
 app.get("/api/getfavorites", (req, res) => {
-    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
@@ -76,13 +78,15 @@ app.post('/api/insertfavorite', (req, res) => {
     });
 });
 
-app.delete('/api/delete', (req, res) => {
+app.get('/api/delete', (req, res) => {
     console.log("rjgejrbgergrehg");
-    const movieid = req.body.movieid;
-    console.log("movieid: " + movieid);
+    var movieidval = req.query.id;
+    console.log("movieid: " + movieidval);
+    console.log(req.query);
+    //console.log(req.body);
 
-    const sqlDelete = "DELETE FROM Favorites WHERE movieid = 2";
-    db.query(sqlDelete, [movieid], (err, result) => {
+    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ?";
+    db.query(sqlDelete, [movieidval], (err, result) => {
         if (err) console.log(err);
     });
 });

@@ -3,7 +3,7 @@ import './App.css';
 import Axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-function MoviePage() {
+function MoviePage(props) {
     const [movieList, setMovieList] = useState([]);
     const [userid, setUserID] = useState('');
     const [movieid, setMovieID] = useState('');
@@ -13,7 +13,8 @@ function MoviePage() {
 
 useEffect(() => {
     console.log("getting one movie");
-    Axios.get("http://localhost:3001/api/getmovie")
+    var movieid= props.location.state[0].movieid;
+    Axios.get("http://localhost:3001/api/getmovie?id=" + movieid)
     .then((response) => {
         setMovie(response.data);
     })

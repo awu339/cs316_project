@@ -17,6 +17,7 @@ function Movies() {
     <div>
       <h1>Movies</h1>
       {movieList.map((val) => {
+        console.log("this movie id: " + val.movieid);
         return (
         <p>
         <Link to={{ 
