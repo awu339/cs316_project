@@ -1,46 +1,21 @@
+.login-form {
+  width: 100% ;
+  max-width: 500px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+  align-items:center
+}
+
+.title {
+  padding-left: 60px;
+  font-weight: bold;
+}
 body, html, #root, .login, .container {
   width: 100%;
   height: 100%;
 }
 
-
-.container {
-  font-size: 28px;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #2a57af;
-}
-
-.loginForm {
- box-sizing: border-box;
- width: 100%;
- max-width: 400px;
- padding-left: 20px;
- padding-right: 20px;
-}
-
-.inputField {
- padding-top: 16px;
-}
-
-.input {
- box-sizing: border-box;
- outline: none;
- border: solid 2px #1189de;
- border-radius: 4px;
- color: #292929;
- width: 100%;
- padding: 12px;
- font-size: 14px;
- background: rgba(255, 255, 255, 1);
-}
-
-.submitButton {
- padding-top: 16px;
-}
 
 
 .btn {
@@ -69,7 +44,7 @@ nav{
 }
 
 .navlinks{
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;

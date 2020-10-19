@@ -7,19 +7,20 @@ import Movies from './Movies';
 import Profile from './Profile';
 import Search from './Search';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import LoginPage from './LoginPage';
 
 
 function App() {
   return (
     <Router>
       <div className="App">
-          <Nav />
           <Switch>
-            <Route path="/" exact component={Home}/>
+            <Route path="/" exact component={LoginPage}/>
             <Route path="/favorites" component={Favorites}/>
             <Route path="/movies" component={Movies}/>
             <Route path="/profile" component={Profile}/>
             <Route path="/search" component={Search}/>
+            <Route path ="/home" component ={Home}/>
           </Switch>
       </div>
     </Router>
