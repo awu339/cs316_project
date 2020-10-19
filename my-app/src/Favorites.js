@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
- 
+import Nav from './Nav';
+
 function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
   const [movieid, setMovieID] = useState([]);
@@ -21,6 +22,7 @@ function Favorites() {
  
   return (
     <div>
+      <Nav />
       <h1>Favorites</h1>
       {favoritesList.map((val) => {
         return (

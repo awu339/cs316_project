@@ -1,3 +1,35 @@
+.login-form {
+  width: 100% ;
+  max-width: 500px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+  align-items:center
+}
+
+.title {
+  padding-left: 60px;
+  font-weight: bold;
+}
+body, html, #root, .login, .container {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.btn {
+ width: 100%;
+ min-width: 280px;
+ color: #565656;
+ padding: 12px;
+ font-size: 14px;
+ font-weight: bold;
+ border: solid 2px #1189de;
+ border-radius: 4px;
+ background: #fff;
+ cursor: pointer;
+}
 .App{
   text-align: center;
 }
@@ -12,7 +44,7 @@ nav{
 }
 
 .navlinks{
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;

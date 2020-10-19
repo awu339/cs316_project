@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import Nav from './Nav';
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);
@@ -15,6 +16,7 @@ function Movies() {
 
   return (
     <div>
+      <Nav/>
       <h1>Movies</h1>
       {movieList.map((val) => {
         return (
@@ -29,8 +31,6 @@ function Movies() {
         );
       })}
     </div>
-
-    
   );
 }
 
