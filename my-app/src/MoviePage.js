@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
+import Nav from './Nav';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function MoviePage(props) {
@@ -30,6 +31,7 @@ const addFavorite = (movieid) => {
 
 return (
   <div>
+    <Nav/>
     <h1>Movie Page</h1>
     {movie.map((val) => {
         return (

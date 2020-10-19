@@ -30,6 +30,7 @@ function Favorites() {
           Movie: {val.name} |
           Year: {val.year} | 
           Synopsis: {val.synopsis}
+          <br />
  <button onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button>
         </p>
         );
