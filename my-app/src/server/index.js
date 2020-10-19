@@ -30,11 +30,12 @@ app.get("/api/getmovies", (req, res) => {
 });
 
 app.get("/api/getfavorites", (req, res) => {
-    const sqlSect = "SELECT movieid FROM Favorites WHERE userid = 1;";
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
 });
+
 
 app.post('/api/insert', (req, res) => {
     console.log('here1');
@@ -50,7 +51,32 @@ app.post('/api/insert', (req, res) => {
         console.log(result);
         console.log(err);
     });
-})
+});
+
+app.post('/api/insertfavorite/:movieid', (req, res) => {
+    console.log('here fav');
+    console.log(req);
+    const userID = 1;
+    const movieid = req.body.movieid;
+    const watched = 1;
+
+    const sqlInsert = "INSERT INTO Favorites (userID, movieid, watched) VALUES(1, movieid, 1)";
+    db.query(sqlInsert, [userID, movieid, watched], (err, result) => {
+        console.log('here');
+        console.log(result);
+        console.log(err);
+    });
+});
+
+app.delete('/api/delete/:movieid', (req, res) => {
+    const movieid = req.body.movieid;
+ 
+    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ?";
+    db.query(sqlDelete, movieid, (err, result) => {
+        if (err) console.log(err);
+    });
+});
+
 
 app.listen(3001, () => {
     console.log('running server on port 3001');

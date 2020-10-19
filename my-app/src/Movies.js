@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);
@@ -18,7 +19,11 @@ function Movies() {
       {movieList.map((val) => {
         return (
         <p>
-          Movie: <button>{val.name} </button> |
+        <Link to={{ 
+          pathname: "/MoviePage", 
+          state: [{userid: 1, movieid: val.movieid, watched: 1}]  
+          }}> {val.movieid} </Link>
+          Movie: {val.name} |
           Year: {val.year}
         </p>
         );
