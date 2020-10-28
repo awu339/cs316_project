@@ -88,8 +88,6 @@ function Newuser() {
             })}
         </div>
     </div>
-
-    
   );
 }
 

@@ -46,6 +46,14 @@ app.get("/api/getfavorites", (req, res) => {
     });
 });
 
+app.get("/api/getsearchtitle", (req, res) => {
+    let title = req.query.title;
+    let sql = "SELECT * FROM Movie WHERE name LIKE '%" + title + "%'";
+    db.query(sql, (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
 
 app.post('/api/insert', (req, res) => {
     console.log('here1');
