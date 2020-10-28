@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
+import Nav from './Nav';
 
 function Newuser() {
     const [userID, setUserID] = useState('');
@@ -32,7 +33,8 @@ function Newuser() {
 
   return (
     <div>
-      <h1>Make a new user</h1>
+      <Nav />
+      <h1>Register new user</h1>
         <div className="form">
             <label>UserID:</label>
             <input 

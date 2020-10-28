@@ -11,7 +11,7 @@ function Nav() {
   return (
     <nav>
         <u1 className="navlinks">
-        <Link style={navStyle} to='/'>
+        <Link style={navStyle} to='/home'>
             <li>Home</li>
         </Link>
         <Link style={navStyle} to='/movies'>
@@ -29,8 +29,12 @@ function Nav() {
         <Link style={navStyle} to='/newuser'>
             <li>New User</li>
         </Link>
+        <Link style ={navStyle} to = '/'>
+            <li>Logout</li> 
+        </Link>
         </u1>
     </nav>
+        
   );
 }
 
