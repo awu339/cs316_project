@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
 import Nav from './Nav';
+import { Link } from 'react-router-dom';
 
 function Search() {
   const [title, setTitle] = useState('');
@@ -32,7 +33,7 @@ function Search() {
     <div>
       <Nav />
       <h1>Search</h1>
-      <div className="form">
+      <div className="search">
         <input 
           type="text" 
           name="title" 
@@ -41,11 +42,19 @@ function Search() {
           }} 
         />
         <button onClick = {submitQuery}>Search</button>
+      </div>
 
+      <div className="resultsBox">
         {searchResult.map((val) => {
-          return (
+          return (  
           <p>
-            {val.name}
+            <Link to={{ 
+              pathname: "/MoviePage", 
+              state: [{userid: 1, movieid: val.movieid, watched: 1}]  
+            }}> 
+               {val.name}
+            </Link>
+            , {val.year}
           </p>
           );
         })}
