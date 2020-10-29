@@ -55,6 +55,15 @@ app.get("/api/getsearchtitle", (req, res) => {
     })
 });
 
+app.get("/api/getsearchyear", (req, res) => {
+    let year = req.query.year;
+    let sql = "SELECT * FROM Movie WHERE year = ?;";
+    db.query(sql, [year], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;

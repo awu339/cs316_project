@@ -3,43 +3,66 @@ import './App.css';
 import Axios from 'axios';
 import Nav from './Nav';
 import { Link } from 'react-router-dom';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 function Search() {
   const [title, setTitle] = useState('');
+  const [year, setYear] = useState('');
   const [searchResult, setResult] = useState([]);
-
-  // useEffect(() => {
-  //     Axios.get("http://localhost:3001/api/getsearchtitle")
-  //     .then((response) => {
-  //       console.log("response" + response);
-  //       setResult(response.data);
-  //     }); 
-  //   }, []);
+  const [dropdownType, setType] = useState('');
 
   const submitQuery = () => {
-      console.log('submit query')
+    console.log('submit query')
 
-      console.log(title);
+    if (dropdownType == "Title" || dropdownType == "") {
       Axios.get("http://localhost:3001/api/getsearchtitle?title=" + title)
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
         setResult(response.data);
       });
+    } else if (dropdownType == "Year") {
+      Axios.get("http://localhost:3001/api/getsearchyear?year=" + year)
+      .then((response) => {
+        setResult(response.data);
+      });
+    } else {
+      console.log("Invalid search submitted")
+    }
 
   };
+
+  const options = [
+    'Title', 'Year'
+  ];
+  const defaultOption = options[0];
 
   return (
     <div>
       <Nav />
       <h1>Search</h1>
       <div className="search">
+        <Dropdown 
+          options={options} 
+          value={defaultOption} 
+          placeholder="Search by..." 
+          onChange={(e) => {
+            setType(e.value);
+            console.log(e.value);
+          }}
+        />
         <input 
           type="text" 
           name="title" 
-          onChange={(e)=> {
-            setTitle(e.target.value)
-          }} 
+          onChange={(e) => {
+              if (dropdownType == "Title") {
+                setTitle(e.target.value);
+              } else if (dropdownType == "Year") {
+                setYear(e.target.value);
+              } else {
+                // Do nothing for now
+              }
+            }
+          }
         />
         <button onClick = {submitQuery}>Search</button>
       </div>
@@ -62,5 +85,6 @@ function Search() {
     </div>
   );
 }
+
 
 export default Search;
