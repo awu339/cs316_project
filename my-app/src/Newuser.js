@@ -16,7 +16,7 @@ function Newuser() {
         .then((response) => {
           setUserList(response.data);
         }); 
-      }, []);
+    }, []);
 
     const submitUser = () => {
         console.log('here2');

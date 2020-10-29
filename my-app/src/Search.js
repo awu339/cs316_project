@@ -28,7 +28,6 @@ function Search() {
     } else {
       console.log("Invalid search submitted")
     }
-
   };
 
   const options = [

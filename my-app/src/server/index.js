@@ -64,6 +64,15 @@ app.get("/api/getsearchyear", (req, res) => {
     })
 });
 
+app.get("/api/gettopmovies", (req, res) => {
+    let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
+    sql += "SELECT m.name, a.rating FROM Movie m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
+    db.query(sql, (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;
