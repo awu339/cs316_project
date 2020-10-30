@@ -10,6 +10,7 @@ function Movies() {
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getmovies")
     .then((response) => {
+      console.log("test data " + response.data);
       setMovieList(response.data);
     }); 
   }, []);
