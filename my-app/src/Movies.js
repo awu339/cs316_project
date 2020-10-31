@@ -24,7 +24,7 @@ function Movies() {
         <p>
         <Link to={{ 
           pathname: "/MoviePage", 
-          state: [{userid: 1, movieid: val.movieid, watched: 1}]  
+          state: [{userid: 1, movieid: val.movieid, watched: 0}]  
           }}> {val.movieid} </Link>
           Movie: {val.name} |
           Year: {val.year}

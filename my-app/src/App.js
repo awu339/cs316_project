@@ -11,7 +11,7 @@ import Search from './Search';
 import Newuser from './Newuser';
 import MoviePage from './MoviePage';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import LoginPage from './LoginPage';
+import Login from './Login';
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
     <Router>
       <div className="App">
           <Switch>
-            <Route path="/" exact component={LoginPage}/>
+            <Route path="/" exact component={Login}/>
             <Route path="/favorites" component={Favorites}/>
             <Route path="/movies" component={Movies}/>
             <Route path="/profile" component={Profile}/>

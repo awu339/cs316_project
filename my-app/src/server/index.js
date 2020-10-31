@@ -46,6 +46,13 @@ app.get("/api/getfavorites", (req, res) => {
     });
 });
 
+app.get("/api/getwatchvalue", (req, res) => {
+    const sqlSelect = "SELECT watched FROM Favorites;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
 
 app.post('/api/insert', (req, res) => {
     console.log('here1');
@@ -68,7 +75,7 @@ app.post('/api/insertfavorite', (req, res) => {
     console.log(req);
     const userID = 1;
     const movieid = req.body.movieid;
-    const watched = 1;
+    const watched = 0;
 
     const sqlInsert = "INSERT INTO Favorites (userID, movieid, watched) VALUES(?, ?, ?)";
     db.query(sqlInsert, [userID, movieid, watched], (err, result) => {
@@ -90,6 +97,39 @@ app.get('/api/delete', (req, res) => {
         if (err) console.log(err);
     });
 });
+
+app.get('/api/watched', (req, res) =>{
+    console.log("watched indexjs");
+    var movieidval = req.query.id;
+    const sqlWatched = "UPDATE Favorites SET watched = 1 WHERE movieid = ?";
+    db.query(sqlWatched, [movieidval], (err, result) =>{
+        if(err) console.log(err);
+    });
+});
+
+app.get('/api/watchvalue', (req, res) =>{
+    console.log("watched VALUE");
+    var movieidval = req.query.id;
+    const sqlWatchValue = "SELECT f.watched FROM Favorites f WHERE movieid = ?";
+    db.query(sqlWatchValue, [movieidval], (err, result) =>{
+        if(err) console.log(err);
+    });
+
+});
+
+app.get('/api/checkuser', (req, res) =>{
+    var usernameval = req.query.id;
+    console.log("check user " + usernameval);
+    const sqlCheckUser = "SELECT password FROM User WHERE username = ?";
+    db.query(sqlCheckUser, [usernameval], (err, result) =>{
+        if(err) console.log(err);
+        console.log(result);
+    });
+    
+
+});
+
+
 
 
 app.listen(3001, () => {
