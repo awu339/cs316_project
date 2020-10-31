@@ -8,7 +8,7 @@ function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
   const [watchVal, setWatchVal] = useState([]);
   const [watchVal2, setWatchVal2] = useState([]);
- 
+  var wval = "";
  
   let unfavorite = (movieid) => {
     console.log("movieid: " + movieid);
@@ -20,21 +20,24 @@ function Favorites() {
     Axios.get("http://localhost:3001/api/watched?id=" + movieid);
   };
 
-/*   let watchvalue = (movieid) => {
+  let watchvalue = (movieid) => {
     console.log("watch value" + movieid);
     Axios.get("http://localhost:3001/api/watchvalue?id=" + movieid)
     .then((response) => {
-      setWatchVal2(response.data);
-    });
-    console.log(response.data);
+      //setWatchVal2(response.data);
+      console.log("sdfdsfddss");
+      console.log(response.data[0].watched);
+      wval = response.data[0].watched;
     
-  };  */
+      console.log("inside watchvalue " + wval);
+    });
+  };  
  
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getfavorites")
     .then((response) => {
       setFavoritesList(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     }); 
   }, []);   
 
@@ -42,7 +45,7 @@ function Favorites() {
     Axios.get("http://localhost:3001/api/getwatchvalue")
     .then((response) => {
       setWatchVal(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     }); 
   }, []);   
  
@@ -56,18 +59,19 @@ function Favorites() {
         var y = watchvalue(val.movieid)[0];
         console.log(y);
         console.log(watchvalue(val.movieid)); */
+        console.log("before watchvalue");
+        watchvalue(val.movieid);
+        console.log("this " + wval);
         return (
         <p>
+          
           Movie: {val.name} |
           Year: {val.year} | 
           Synopsis: {val.synopsis} |
-          Watched: 
-         
+          Watched: {wval.watched}
           <br />
-        
- <button onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button>
- <button onClick={() => {watched(val.movieid)}}> Watched </button>
- 
+          <button onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button>
+          <button onClick={() => {watched(val.movieid)}}> Watched </button>
         </p>
         );
       })}

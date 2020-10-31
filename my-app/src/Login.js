@@ -6,36 +6,45 @@ import Axios from 'axios';
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [correctPassword, setCorrectPassword] = useState("");
-
-  var x = "";
+  //const [correctPassword, setCorrectPassword] = useState("");
+  var correctPassword = "";
+ 
   function validateForm() {
     return username.length > 0 && password.length > 0;
-
   }
-
-
 
   function handleSubmit(event) {
     event.preventDefault();
     console.log("ohfssofhosfhsifds");
-    alert('username ' + username + " password " + password);
+    //alert('username ' + username + " password " + password);
+    console.log(password);
     
     Axios.get("http://localhost:3001/api/checkuser?id=" + username)
     .then((response) => {
-        console.log(response.data[0].password);
-        x = response.data[0].password;
-        setCorrectPassword(response.data[0].password);
-        console.log(x);
-        console.log(correctPassword);
-      });  
 
-      
-    
-  }
- 
- 
+        if(response.data.length == 0) {
+            alert("Username does not exist. Please try again");
+        }
+        else{
+            correctPassword = response.data[0].password;
+            console.log(correctPassword);
+            console.log(password===correctPassword);
+            checkPassword();
+        }    
+      });        
+    }
 
+    function checkPassword() {
+        if (password === correctPassword){
+            console.log("correct password"); 
+            window.location.href = "http://localhost:3000/home";
+        }
+        else{
+            console.log("WRONG!");
+            alert('Wrong Password. Please try again.');
+        }
+    }; 
+ 
   return (
     <div className="Login">
         <h1>movielist.com</h1>

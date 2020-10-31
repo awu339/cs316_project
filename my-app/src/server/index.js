@@ -113,6 +113,7 @@ app.get('/api/watchvalue', (req, res) =>{
     const sqlWatchValue = "SELECT f.watched FROM Favorites f WHERE movieid = ?";
     db.query(sqlWatchValue, [movieidval], (err, result) =>{
         if(err) console.log(err);
+        res.send(result);
     });
 
 });
@@ -125,6 +126,8 @@ app.get('/api/checkuser', (req, res) =>{
         if(err) console.log(err);
         console.log(result);
         res.send(result);
+        
+      
     });
     
 
