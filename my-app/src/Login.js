@@ -8,6 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [correctPassword, setCorrectPassword] = useState("");
 
+  var x = "";
   function validateForm() {
     return username.length > 0 && password.length > 0;
 
@@ -19,11 +20,17 @@ export default function Login() {
     event.preventDefault();
     console.log("ohfssofhosfhsifds");
     alert('username ' + username + " password " + password);
-    Axios.get("http://localhost:3001/api/checkuser?id=" + username);
-    //  .then((response) => {
-    //     setCorrectPassword(response.data);
-    //     console.log(correctPassword);
-    //   });  
+    
+    Axios.get("http://localhost:3001/api/checkuser?id=" + username)
+    .then((response) => {
+        console.log(response.data[0].password);
+        x = response.data[0].password;
+        setCorrectPassword(response.data[0].password);
+        console.log(x);
+        console.log(correctPassword);
+      });  
+
+      
     
   }
  

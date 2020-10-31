@@ -124,6 +124,7 @@ app.get('/api/checkuser', (req, res) =>{
     db.query(sqlCheckUser, [usernameval], (err, result) =>{
         if(err) console.log(err);
         console.log(result);
+        res.send(result);
     });
     
 
