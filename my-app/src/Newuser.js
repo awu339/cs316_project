@@ -29,6 +29,7 @@ function Newuser() {
         }).then(() => {
             alert("success");
         });
+        window.location.href = "http://localhost:3000/";
     };
 
   return (

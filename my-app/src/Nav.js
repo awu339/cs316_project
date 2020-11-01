@@ -26,9 +26,12 @@ function Nav() {
         <Link style={navStyle} to='/search'>
             <li>Search</li>
         </Link>
-        <Link style={navStyle} to='/newuser'>
-            <li>New User</li>
+        <Link style={navStyle} to='/friends'>
+            <li>Friends</li>
         </Link>
+       {/*  <Link style={navStyle} to='/newuser'>
+            <li>New User</li>
+        </Link> */}
         <Link style ={navStyle} to = '/'>
             <li>Logout</li> 
         </Link>

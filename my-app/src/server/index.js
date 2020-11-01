@@ -47,6 +47,13 @@ app.get("/api/getreviews", (req, res) => {
     });
 });
 
+app.get("/api/getfriends", (req, res) => {
+    const sqlSelect = "SELECT f.user2 FROM Friend f WHERE f.user1 = 1;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
+
 app.get("/api/getfavorites", (req, res) => {
     const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
     db.query(sqlSelect, (err, result) => {
@@ -171,7 +178,6 @@ app.get('/api/watchvalue', (req, res) =>{
         if(err) console.log(err);
         res.send(result);
     });
-
 });
 
 app.get('/api/checkuser', (req, res) =>{
@@ -181,6 +187,16 @@ app.get('/api/checkuser', (req, res) =>{
     db.query(sqlCheckUser, [usernameval], (err, result) =>{
         if(err) console.log(err);
         console.log(result);
+        res.send(result);
+    });
+});
+
+app.get('/api/getname', (req, res) =>{
+    //console.log("watched VALUE");
+    var username = req.query.id;
+    const sqlSelect = "SELECT username FROM User WHERE userid = ?";
+    db.query(sqlSelect, [username], (err, result) =>{
+        if(err) console.log(err);
         res.send(result);
     });
 });

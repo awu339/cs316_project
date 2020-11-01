@@ -12,6 +12,7 @@ import Newuser from './Newuser';
 import MoviePage from './MoviePage';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './Login';
+import Friends from './Friends';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/newuser" component={Newuser}/>
             <Route path="/moviepage" component={MoviePage}/>
             <Route path ="/home" component ={Home}/>
+            <Route path ="/friends" component ={Friends}/>
           </Switch>
       </div>
     </Router>

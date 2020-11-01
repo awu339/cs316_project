@@ -33,7 +33,7 @@ function Favorites() {
     
       console.log("inside watchvalue " + wval);
     });
-  };  
+  }; 
  
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getfavorites")

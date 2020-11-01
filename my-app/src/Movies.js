@@ -16,7 +16,7 @@ function Movies() {
   }, []);
 
   return (
-    <div>
+    <div> 
       <Nav/>
       <h1>Movies</h1>
       {movieList.map((val) => {
