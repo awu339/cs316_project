@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
 import Nav from './Nav';
+import { Button, Container, Row, Col } from 'reactstrap';
+//import { Button } from 'react-bootstrap';
 //import Button from 'react-bootstrap';
 
 function Favorites() {
@@ -51,48 +53,51 @@ function Favorites() {
  
  
   return (
-    <div>
+    <div id="fav">
       <Nav />
       <h1>Favorites</h1>
-      {favoritesList.map((val) => {
-        /* console.log("sifgsguhsuo" + val.movieid);
-        var y = watchvalue(val.movieid)[0];
-        console.log(y);
-        console.log(watchvalue(val.movieid)); */
-        console.log("before watchvalue");
-        watchvalue(val.movieid);
-        console.log("this " + wval);
-        return (
-        <p>
-          
-          Movie: {val.name} |
-          Year: {val.year} | 
-          Synopsis: {val.synopsis} |
-          Watched: {wval.watched}
-          <br />
-          <button onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button>
-          <button onClick={() => {watched(val.movieid)}}> Watched </button>
-        </p>
-        );
-      })}
-      {watchVal.map((val) => {
-        if (val.watched == 1){
-          var x = "Yes"
-        }
-        else{
-          var x = "No"
-        }
-        return(
+      <Container>
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
 
-        <p>
-          Watched: {x}
-          </p>
-          
-        );
-      
-      })}
-
-    
+          {favoritesList.map((val) => {
+          /* console.log("sifgsguhsuo" + val.movieid);
+          var y = watchvalue(val.movieid)[0];
+          console.log(y);
+          console.log(watchvalue(val.movieid)); */
+          console.log("before watchvalue");
+          watchvalue(val.movieid);
+          console.log("this is wval " + wval);
+          return (
+            <p>
+              Movie: {val.name} |
+              Year: {val.year} | 
+              Synopsis: {val.synopsis}
+              <br />
+              <button  color="primary" size="sm" type="button" onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button> 
+              {' '}
+              <button  color="primary" size="sm"  type="button" onClick={() => {watched(val.movieid)}}> Watched </button>
+         
+           </p>
+          );
+          })} 
+          </Col>
+          <Col>
+            {watchVal.map((val) => {
+              if (val.watched == 1){
+                var x = "Yes"
+              }
+              else{
+                var x = "No"
+              }
+              return(
+                
+                <p>  Watched: {x} <br /> <br /> </p>
+              );
+            })}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

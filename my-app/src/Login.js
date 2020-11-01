@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -69,6 +70,7 @@ export default function Login() {
         <Button block bsSize="large" disabled={!validateForm()} type="submit">
           Login
         </Button>
+        <Link to = '/newuser'><Button block bsSize="large" className = "btn"> Register </Button></Link>
       </form>
     </div>
   );
