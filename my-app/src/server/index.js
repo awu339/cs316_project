@@ -31,11 +31,19 @@ app.get("/api/getmovies", (req, res) => {
 
 app.get("/api/getmovie", (req, res) => {
     let movieid = req.query.id;
-    console.log(req.query)
+    console.log(req.query);
     const sqlSelect = "SELECT * FROM Movie where movieid = ?;";
     db.query(sqlSelect, [movieid], (err, result) => {
         res.send(result);
         console.log(result);
+    });
+});
+
+app.get("/api/getreviews", (req, res) => {
+    let movieid = req.query.id;
+    const sqlSelect = "SELECT * FROM Review where movieid = ?;";
+    db.query(sqlSelect, [movieid], (err, result) => {
+        res.send(result);
     });
 });
 
@@ -53,6 +61,27 @@ app.get("/api/getwatchvalue", (req, res) => {
     });
 });
 
+
+app.get("/api/getusername", (req, res) => {
+    let userid = req.query.userid;
+    const sqlSelect = "SELECT username FROM User WHERE userid = ?;";
+    db.query(sqlSelect, [userid], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.post('/api/submitreview', (req, res) => {
+    let rating = req.body.rating;
+    let content = req.body.review;
+    let movieid = req.body.movieid;
+    let date = req.body.date;
+    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(1, ?, ?, ?, ?)";
+    db.query(sqlInsert, [movieid, rating, date, content], (err, result) => {
+        console.log('here for review');
+        console.log(result);
+        console.log(err);
+    });
+});
 
 app.post('/api/insert', (req, res) => {
     console.log('here1');
@@ -126,15 +155,8 @@ app.get('/api/checkuser', (req, res) =>{
         if(err) console.log(err);
         console.log(result);
         res.send(result);
-        
-      
     });
-    
-
 });
-
-
-
 
 app.listen(3001, () => {
     console.log('running server on port 3001');
