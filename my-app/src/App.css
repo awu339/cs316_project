@@ -16,16 +16,16 @@ body, html, #root, .login, .container {
 }
 
 .btn {
- width: 100%;
- min-width: 280px;
- color: #565656;
- padding: 12px;
- font-size: 14px;
- font-weight: bold;
- border: solid 2px #1189de;
- border-radius: 4px;
- background: #fff;
- cursor: pointer;
+  width: 100%;
+  min-width: 280px;
+  color: #565656;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: solid 2px #1189de;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
 }
 .App{
   text-align: center;
@@ -61,3 +61,20 @@ nav{
   margin: 10px;
 }
 
+.search {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search input {
+  width: 500px;
+  height: 50px;
+  margin: 10px;
+}
+
+.resultsBox {
+  padding: 20px;
+  text-align: left;
+}

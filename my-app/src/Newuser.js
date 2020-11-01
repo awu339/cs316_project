@@ -16,7 +16,7 @@ function Newuser() {
         .then((response) => {
           setUserList(response.data);
         }); 
-      }, []);
+    }, []);
 
     const submitUser = () => {
         console.log('here2');
@@ -73,7 +73,7 @@ function Newuser() {
                 type="text" 
                 name="date" 
                 onChange={(e)=> {
-                setDate(e.target.value)
+                    setDate(e.target.value)
                 }} 
             />
             <button onClick = {submitUser}>Submit</button>
@@ -88,8 +88,6 @@ function Newuser() {
             })}
         </div>
     </div>
-
-    
   );
 }
 

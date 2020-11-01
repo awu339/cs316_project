@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -51,7 +51,7 @@ export default function Login() {
         <h1>movielist.com</h1>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="username" bsSize="large">
-          <ControlLabel>Username</ControlLabel>
+          <FormLabel>Username</FormLabel>
           <FormControl
             autoFocus
             type="username"
@@ -60,7 +60,7 @@ export default function Login() {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
+          <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}

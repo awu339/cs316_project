@@ -49,7 +49,7 @@ const getUsername = (userid) => {
 };
 
 const submitReview = () => {
-  var movieid= props.location.state[0].movieid;
+  var movieid = props.location.state[0].movieid;
   console.log("getting here");
   Axios.post('http://localhost:3001/api/submitreview', {
             rating: rating,
@@ -125,6 +125,5 @@ return (
   </div>
 );
 }
-
 
 export default MoviePage;

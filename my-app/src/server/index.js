@@ -83,6 +83,33 @@ app.post('/api/submitreview', (req, res) => {
     });
 });
 
+app.get("/api/getsearchtitle", (req, res) => {
+    let title = req.query.title;
+    let sql = "SELECT * FROM Movie WHERE name LIKE '%" + title + "%'";
+    db.query(sql, (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
+app.get("/api/getsearchyear", (req, res) => {
+    let year = req.query.year;
+    let sql = "SELECT * FROM Movie WHERE year = ?;";
+    db.query(sql, [year], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
+app.get("/api/gettopmovies", (req, res) => {
+    let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
+    sql += "SELECT m.name, a.rating FROM Movie m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
+    db.query(sql, (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;
@@ -161,9 +188,3 @@ app.get('/api/checkuser', (req, res) =>{
 app.listen(3001, () => {
     console.log('running server on port 3001');
 }); 
-
-// const sqlInsert = "INSERT INTO User VALUES(1, 
-// 'sarah', 'pwd', 'user', '2020-09-01')";
-//     db.query(sqlInsert, (err, result) => {
-//         res.send("hello");
-//     });
