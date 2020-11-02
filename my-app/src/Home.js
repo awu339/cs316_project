@@ -16,6 +16,26 @@ function Home() {
     }); 
   }, []);
 
+  useEffect(() => {
+    var id = 3896150;
+
+    while (id < 3896200) {
+      fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=1e2df624")
+      .then(response => response.json())
+      .then(data => {
+        if (data.Type == "movie") {
+          console.log("movie");
+          console.log(data); 
+        }
+      });
+      id++;
+    }
+
+
+
+    
+  })
+
   return (
     <div>
       <Nav/>
