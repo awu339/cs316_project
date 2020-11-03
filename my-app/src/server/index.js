@@ -23,7 +23,7 @@ app.get("/api/getusers", (req, res) => {
 });
 
 app.get("/api/getmovies", (req, res) => {
-    const sqlSelect = "SELECT * FROM Movie;";
+    const sqlSelect = "SELECT * FROM Movies order by year desc, name asc;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
@@ -32,7 +32,7 @@ app.get("/api/getmovies", (req, res) => {
 app.get("/api/getmovie", (req, res) => {
     let movieid = req.query.id;
     console.log(req.query);
-    const sqlSelect = "SELECT * FROM Movie where movieid = ?;";
+    const sqlSelect = "SELECT * FROM Movies where movieid = ?;";
     db.query(sqlSelect, [movieid], (err, result) => {
         res.send(result);
         console.log(result);
@@ -81,9 +81,10 @@ app.post('/api/submitreview', (req, res) => {
     let rating = req.body.rating;
     let content = req.body.review;
     let movieid = req.body.movieid;
-    let date = req.body.date;
-    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(1, ?, ?, ?, ?)";
-    db.query(sqlInsert, [movieid, rating, date, content], (err, result) => {
+    let date = parseInt(req.body.date);
+    console.log(date);
+    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(1, ?, ?, curdate(), ?)";
+    db.query(sqlInsert, [movieid, rating, content], (err, result) => {
         console.log('here for review');
         console.log(result);
         console.log(err);
@@ -110,7 +111,7 @@ app.get("/api/getsearchyear", (req, res) => {
 
 app.get("/api/gettopmovies", (req, res) => {
     let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
-    sql += "SELECT m.name, a.rating FROM Movie m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
+    sql += "SELECT m.name, a.rating FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
     db.query(sql, (err, result) => {
         res.send(result);
         console.log(result);
@@ -198,6 +199,25 @@ app.get('/api/getname', (req, res) =>{
     db.query(sqlSelect, [username], (err, result) =>{
         if(err) console.log(err);
         res.send(result);
+    });
+});
+
+app.post('/api/loadmovies', (req, res) => {
+    var name = req.body.name;
+    var year = req.body.year;
+    var plot = req.body.plot;
+    var genre = req.body.genre;
+    var director = req.body.director;
+    var actors = req.body.actors;
+    var runtime = req.body.runtime;
+
+    console.log(name);
+    console.log(year);
+    const sql = "INSERT INTO Movies (name, year, plot, genre, director, actors, runtime) VALUES (?, ?, ?, ?, ?, ?, ?);"
+    db.query(sql, [name, year, plot, genre, director, actors, runtime], (err, result) => {
+        console.log(res);
+        console.log(err);
+        console.log(result);
     });
 });
 

@@ -20,15 +20,13 @@ function Movies() {
       <Nav/>
       <h1>Movies</h1>
       {movieList.map((val) => {
-        console.log("this movie id: " + val.movieid);
         return (
         <p>
         <Link to={{ 
           pathname: "/MoviePage", 
           state: [{userid: 1, movieid: val.movieid, watched: 0}]  
-          }}> {val.movieid} </Link>
-          Movie: {val.name} |
-          Year: {val.year}
+          }}> See more </Link>
+          {val.name} | {val.year}
         </p>
         );
       })}
