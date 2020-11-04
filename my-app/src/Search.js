@@ -16,6 +16,7 @@ function Search() {
     console.log('submit query')
 
     if (dropdownType == "Title" || dropdownType == "") {
+      console.log(title);
       Axios.get("http://localhost:3001/api/getsearchtitle?title=" + title)
       .then((response) => {
         setResult(response.data);
@@ -53,7 +54,8 @@ function Search() {
           type="text" 
           name="title" 
           onChange={(e) => {
-              if (dropdownType == "Title") {
+              if (dropdownType == "Title" || dropdownType == "") {
+                console.log('setting title');
                 setTitle(e.target.value);
               } else if (dropdownType == "Year") {
                 setYear(e.target.value);

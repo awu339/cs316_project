@@ -19,7 +19,7 @@ function Home() {
   //this code is used to load in movies
   // useEffect(() => {
   //   var countInserted = 0;
-  //   var id = 5000000;
+  //   var id = 5001000;
   //   var actors;
   //   var director;
   //   var genre;
@@ -28,8 +28,8 @@ function Home() {
   //   var year;
   //   var runtime;
 
-  //   while (id < 5001000 && countInserted < 500) {
-  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=b0b28998")
+  //   while (id < 5002000 && countInserted < 1000) {
+  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=554703d8")
   //     .then(response => response.json())
   //     .then(data => {
   //       if (data.Type == "movie") {
@@ -72,10 +72,6 @@ function Home() {
       {topMovies.map((movie) => {
         return (
         <p>
-          <Link to={{ 
-          pathname: "/MoviePage", 
-          state: [{userid: 1, movieid: movie.movieid, watched: 0}]  
-          }}> See more </Link>
           {movie.name} |
           Rating: {movie.rating}
         </p>

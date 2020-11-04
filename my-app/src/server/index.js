@@ -92,17 +92,20 @@ app.post('/api/submitreview', (req, res) => {
 });
 
 app.get("/api/getsearchtitle", (req, res) => {
-    let title = req.query.title;
-    let sql = "SELECT * FROM Movie WHERE name LIKE '%" + title + "%'";
-    db.query(sql, (err, result) => {
+    let title = '%' + req.query.title + '%';
+    console.log(title);
+    let sql = "SELECT * FROM Movies WHERE name LIKE ?;";
+    db.query(sql, [title], (err, result) => {
         res.send(result);
         console.log(result);
+        console.log(err);
+        //console.log(result);
     })
 });
 
 app.get("/api/getsearchyear", (req, res) => {
     let year = req.query.year;
-    let sql = "SELECT * FROM Movie WHERE year = ?;";
+    let sql = "SELECT * FROM Movies WHERE year = ?;";
     db.query(sql, [year], (err, result) => {
         res.send(result);
         console.log(result);
