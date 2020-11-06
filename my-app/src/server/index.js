@@ -48,14 +48,28 @@ app.get("/api/getreviews", (req, res) => {
 });
 
 app.get("/api/getfriends", (req, res) => {
-    const sqlSelect = "SELECT f.user2 FROM Friend f WHERE f.user1 = 1;";
+    const sqlSelect = "SELECT u.username FROM Friend f, User u WHERE f.user1 = 1 and f.user2 = u.userid;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
 });
 
-app.get("/api/getfavorites", (req, res) => {
+/* app.get("/api/getfriends", (req, res) => {
+    const sqlSelect = "SELECT f.user2 FROM Friend f WHERE f.user1 = 1;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+}); */
+
+/* app.get("/api/getfavorites", (req, res) => {
     const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+}); */
+
+app.get("/api/getfavorites", (req, res) => {
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid, f.watched as watched FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });

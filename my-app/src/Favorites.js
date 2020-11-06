@@ -56,23 +56,25 @@ function Favorites() {
     <div id="fav">
       <Nav />
       <h1>Favorites</h1>
-      <Container>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
+      {/* <Container>
+        <Row> 
+          <Col md={{ size: 6, offset: 3 }}>*/}
 
           {favoritesList.map((val) => {
-          /* console.log("sifgsguhsuo" + val.movieid);
-          var y = watchvalue(val.movieid)[0];
-          console.log(y);
-          console.log(watchvalue(val.movieid)); */
-          console.log("before watchvalue");
-          watchvalue(val.movieid);
-          console.log("this is wval " + wval);
+    
+          var x = "";
+          if (val.watched == 1){
+            var x = "Yes"
+          }
+          else{
+            var x = "No"
+          }
           return (
             <p>
               Movie: {val.name} |
               Year: {val.year} | 
-              Synopsis: {val.synopsis}
+              Synopsis: {val.synopsis} |
+              Watched: {x}
               <br />
               <button  color="primary" size="sm" type="button" onClick={() => {unfavorite(val.movieid)}}> Unfavorite </button> 
               {' '}
@@ -81,7 +83,7 @@ function Favorites() {
            </p>
           );
           })} 
-          </Col>
+         {/*  </Col>
           <Col>
             {watchVal.map((val) => {
               if (val.watched == 1){
@@ -97,7 +99,7 @@ function Favorites() {
             })}
           </Col>
         </Row>
-      </Container>
+      </Container> */}
     </div>
   );
 }
