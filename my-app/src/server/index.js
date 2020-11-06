@@ -48,7 +48,7 @@ app.get("/api/getreviews", (req, res) => {
 });
 
 app.get("/api/getfriends", (req, res) => {
-    const sqlSelect = "SELECT u.username FROM Friend f, User u WHERE f.user1 = 1 and f.user2 = u.userid;";
+    const sqlSelect = "SELECT u.username, u.userid FROM Friend f, User u WHERE f.user1 = 1 and f.user2 = u.userid;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
@@ -67,6 +67,16 @@ app.get("/api/getfriends", (req, res) => {
         res.send(result);
     });
 }); */
+
+app.get("/api/getfriendfav", (req, res) => {
+    let userid = req.query.id;
+    console.log(req.query);
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid, f.watched as watched FROM Movie as m, Favorites as f WHERE f.userid = ? and f.movieid = m.movieid;";
+    db.query(sqlSelect, [userid], (err, result) => {
+        res.send(result);
+        console.log(result);
+    });
+});
 
 app.get("/api/getfavorites", (req, res) => {
     const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid, f.watched as watched FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
@@ -168,14 +178,30 @@ app.post('/api/insertfavorite', (req, res) => {
     });
 });
 
+//for friend fav
+app.post('/api/insertfriendfavorite', (req, res) => {
+    console.log('here fav');
+    console.log(req);
+    const userID = 1;
+    const movieid = req.body.movieid;
+    const watched = 0;
+
+    const sqlInsert = "INSERT INTO Favorites (userID, movieid, watched) VALUES(?, ?, ?)";
+    db.query(sqlInsert, [userID, movieid, watched], (err, result) => {
+        console.log('here');
+        console.log(result);
+        console.log(err);
+    });
+});
+
 app.get('/api/delete', (req, res) => {
     console.log("rjgejrbgergrehg");
     var movieidval = req.query.id;
     console.log("movieid: " + movieidval);
     console.log(req.query);
     //console.log(req.body);
-
-    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ?";
+    //we need to replace userid 1 with whoever is logged in
+    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ? and userid = 1";
     db.query(sqlDelete, [movieidval], (err, result) => {
         if (err) console.log(err);
     });
@@ -205,6 +231,17 @@ app.get('/api/checkuser', (req, res) =>{
     console.log("check user " + usernameval);
     const sqlCheckUser = "SELECT password FROM User WHERE username = ?";
     db.query(sqlCheckUser, [usernameval], (err, result) =>{
+        if(err) console.log(err);
+        console.log(result);
+        res.send(result);
+    });
+});
+
+app.get('/api/getuserid', (req, res) =>{
+    var usernameval = req.query.id;
+    console.log("check user " + usernameval);
+    const sqlSelect = "SELECT userid FROM User WHERE username = ?";
+    db.query(sqlSelect, [usernameval], (err, result) =>{
         if(err) console.log(err);
         console.log(result);
         res.send(result);

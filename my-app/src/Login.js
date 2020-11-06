@@ -3,6 +3,9 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+var current_userid = "";
+
+//localStorage.setItem('Userid',current_userid);
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -38,6 +41,15 @@ export default function Login() {
     function checkPassword() {
         if (password === correctPassword){
             console.log("correct password"); 
+            Axios.get("http://localhost:3001/api/getuserid?id=" + username)
+            .then((response) => {
+                console.log("pls get this data");
+                console.log(response.data[0].userid);
+                current_userid = response.data[0].userid;
+                console.log(current_userid);
+                //createItem();
+
+            });
             window.location.href = "http://localhost:3000/home";
         }
         else{
@@ -45,6 +57,12 @@ export default function Login() {
             alert('Wrong Password. Please try again.');
         }
     }; 
+
+    /* function createItem() {
+      localStorage.setItem("id", current_userid);
+    } */
+
+    
  
   return (
     <div className="Login">

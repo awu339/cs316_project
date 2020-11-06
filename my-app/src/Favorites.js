@@ -4,10 +4,11 @@ import Axios from 'axios';
 import Nav from './Nav';
 import { Button } from 'reactstrap';
 //import { Button } from 'react-bootstrap';
-
+//var id = "";
 
 function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
+  //console.log(current_userid);
   
   let unfavorite = (movieid) => {
     console.log("movieid: " + movieid);
@@ -24,8 +25,15 @@ function Favorites() {
     .then((response) => {
       setFavoritesList(response.data);
       //console.log(response.data);
+      //readValue();
     }); 
   }, []);   
+
+  /* function readValue() {
+    id = localStorage.getItem("id");
+    console.log("id " + id);
+    //document.getElementById("demo").innerHTML = x;
+  } */
 
   return (
     <div>
