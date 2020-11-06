@@ -82,6 +82,12 @@ app.get("/api/getwatchvalue", (req, res) => {
     });
 });
 
+app.get("/api/getprofile", (req, res) => {
+    const sqlSelect = "SELECT userid, username, type, date_created FROM User WHERE userid = 1;";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    });
+});
 
 app.get("/api/getusername", (req, res) => {
     let userid = req.query.userid;
