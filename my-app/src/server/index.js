@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+//const userid = localStorage.getItem('userid');
+  
 
 const db = mysql.createPool({
     host: 'localhost',
@@ -103,7 +105,7 @@ app.get("/api/getprofile", (req, res) => {
 });
 
 app.get("/api/getusername", (req, res) => {
-    let userid = req.query.userid;
+    let userid = req.query.id;
     const sqlSelect = "SELECT username FROM User WHERE userid = ?;";
     db.query(sqlSelect, [userid], (err, result) => {
         res.send(result);
@@ -201,12 +203,15 @@ app.post('/api/insertfriendfavorite', (req, res) => {
 app.get('/api/delete', (req, res) => {
     console.log("rjgejrbgergrehg");
     var movieidval = req.query.id;
+    var userid = req.query.userid;
+    //console.log("cur" + cur_userid);
     console.log("movieid: " + movieidval);
-    console.log(req.query);
+    console.log("userid: " + userid);
+    console.log("query" + req.query);
     //console.log(req.body);
     //we need to replace userid 1 with whoever is logged in
-    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ? and userid = 1";
-    db.query(sqlDelete, [movieidval], (err, result) => {
+    const sqlDelete = "DELETE FROM Favorites WHERE movieid = ? and userid = ?";
+    db.query(sqlDelete, [movieidval, userid],  (err, result) => {
         if (err) console.log(err);
     });
 });

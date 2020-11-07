@@ -48,6 +48,7 @@ export default function Login() {
                 current_userid = response.data[0].userid;
                 console.log(current_userid);
                 localStorage.setItem('userid', current_userid);
+                console.log('userid');
 
             });
             window.location.href = "http://localhost:3000/home";
