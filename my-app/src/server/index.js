@@ -48,8 +48,9 @@ app.get("/api/getreviews", (req, res) => {
 });
 
 app.get("/api/getfriends", (req, res) => {
-    const sqlSelect = "SELECT u.username, u.userid FROM Friend f, User u WHERE f.user1 = 1 and f.user2 = u.userid;";
-    db.query(sqlSelect, (err, result) => {
+    let userid = req.query.id;
+    const sqlSelect = "SELECT u.username, u.userid FROM Friend f, User u WHERE f.user1 = ? and f.user2 = u.userid;";
+    db.query(sqlSelect, [userid], (err, result) => {
         res.send(result);
     });
 });
@@ -79,8 +80,9 @@ app.get("/api/getfriendfav", (req, res) => {
 });
 
 app.get("/api/getfavorites", (req, res) => {
-    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid, f.watched as watched FROM Movie as m, Favorites as f WHERE f.userid = 1 and f.movieid = m.movieid;";
-    db.query(sqlSelect, (err, result) => {
+    let userid = req.query.id;
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.synopsis as synopsis, f.movieid as movieid, f.watched as watched FROM Movie as m, Favorites as f WHERE f.userid = ? and f.movieid = m.movieid;";
+    db.query(sqlSelect, [userid], (err, result) => {
         res.send(result);
     });
 });
@@ -93,8 +95,9 @@ app.get("/api/getwatchvalue", (req, res) => {
 });
 
 app.get("/api/getprofile", (req, res) => {
-    const sqlSelect = "SELECT userid, username, type, date_created FROM User WHERE userid = 1;";
-    db.query(sqlSelect, (err, result) => {
+    let userid = req.query.id;
+    const sqlSelect = "SELECT userid, username, type, date_created FROM User WHERE userid = ?;";
+    db.query(sqlSelect, [userid], (err, result) => {
         res.send(result);
     });
 });
@@ -108,12 +111,13 @@ app.get("/api/getusername", (req, res) => {
 });
 
 app.post('/api/submitreview', (req, res) => {
+    let userid = req.body.userid;
     let rating = req.body.rating;
     let content = req.body.review;
     let movieid = req.body.movieid;
     let date = req.body.date;
-    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(1, ?, ?, ?, ?)";
-    db.query(sqlInsert, [movieid, rating, date, content], (err, result) => {
+    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(?, ?, ?, ?, ?)";
+    db.query(sqlInsert, [uerid, movieid, rating, date, content], (err, result) => {
         console.log('here for review');
         console.log(result);
         console.log(err);
@@ -166,7 +170,7 @@ app.post('/api/insert', (req, res) => {
 app.post('/api/insertfavorite', (req, res) => {
     console.log('here fav');
     console.log(req);
-    const userID = 1;
+    const userID = req.body.userid;
     const movieid = req.body.movieid;
     const watched = 0;
 
@@ -181,8 +185,8 @@ app.post('/api/insertfavorite', (req, res) => {
 //for friend fav
 app.post('/api/insertfriendfavorite', (req, res) => {
     console.log('here fav');
-    console.log(req);
-    const userID = 1;
+    console.log(req.body.userid);
+    const userID = req.body.userid;
     const movieid = req.body.movieid;
     const watched = 0;
 
@@ -210,8 +214,9 @@ app.get('/api/delete', (req, res) => {
 app.get('/api/watched', (req, res) =>{
     console.log("watched indexjs");
     var movieidval = req.query.id;
-    const sqlWatched = "UPDATE Favorites SET watched = 1 WHERE movieid = ?";
-    db.query(sqlWatched, [movieidval], (err, result) =>{
+    var userid = req.query.userid;
+    const sqlWatched = "UPDATE Favorites SET watched = 1 WHERE movieid = ? and userid = ?";
+    db.query(sqlWatched, [movieidval, userid], (err, result) =>{
         if(err) console.log(err);
     });
 });

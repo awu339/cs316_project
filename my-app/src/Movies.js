@@ -3,8 +3,6 @@ import './App.css';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import Nav from './Nav';
-//import { current } from './Login';
-
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);

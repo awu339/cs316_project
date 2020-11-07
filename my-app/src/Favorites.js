@@ -4,43 +4,34 @@ import Axios from 'axios';
 import Nav from './Nav';
 import { Button } from 'reactstrap';
 //import { Button } from 'react-bootstrap';
-//var id = "";
 
 function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
-  //console.log(current_userid);
+  const userid = localStorage.getItem('userid');
   
-  let unfavorite = (movieid) => {
+  let unfavorite = (movieid, userid) => {
     console.log("movieid: " + movieid);
-    Axios.get("http://localhost:3001/api/delete?id=" + movieid);
+    Axios.get("http://localhost:3001/api/delete?id=" + movieid + userid);
   };
 
-  let watched = (movieid) => {
+  let watched = (movieid, userid) => {
     console.log("watched" + movieid);
-    Axios.get("http://localhost:3001/api/watched?id=" + movieid);
+    Axios.get("http://localhost:3001/api/watched?id=" + movieid + userid);
   };
  
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/getfavorites")
+    Axios.get("http://localhost:3001/api/getfavorites?id=" + userid)
     .then((response) => {
       setFavoritesList(response.data);
-      //console.log(response.data);
-      //readValue();
     }); 
   }, []);   
-
-  /* function readValue() {
-    id = localStorage.getItem("id");
-    console.log("id " + id);
-    //document.getElementById("demo").innerHTML = x;
-  } */
 
   return (
     <div>
       <Nav />
       <h1>Favorites</h1>
           {favoritesList.map((val) => {
-    
+          console.log(userid);
           var watchval = "";
           if (val.watched == 1){
             var watchval = "Yes"

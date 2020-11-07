@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 
 function Friends() {
     const [friendFavList, setFriendFavList] = useState([]);
+    const userid = localStorage.getItem('userid');
 
     useEffect(() => {
-        Axios.get("http://localhost:3001/api/getfriends")
+        Axios.get("http://localhost:3001/api/getfriends?id=" + userid)
         .then((response) => {
           setFriendFavList(response.data);
           console.log(response.data);

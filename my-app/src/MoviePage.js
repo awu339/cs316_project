@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function MoviePage(props) {
     const [movieList, setMovieList] = useState([]);
-    const [userid, setUserID] = useState('');
+    //const [userid, setUserID] = useState('');
     const [movieid, setMovieID] = useState('');
     const [watched, setWatched] = useState('');
     const [movie, setMovie] = useState([]);
@@ -16,6 +16,8 @@ function MoviePage(props) {
     var [rating, setRating] = useState("");
     var [review, setReview] = useState("");
     var [date, setDate] = useState("");
+
+    const userid = localStorage.getItem('userid');
 
 useEffect(() => {
     console.log("getting one movie");
@@ -33,7 +35,8 @@ useEffect(() => {
 const addFavorite = (movieid) => {
     console.log('adding favorite');
     Axios.post(`http://localhost:3001/api/insertfavorite`, {
-        movieid: movieid
+        movieid: movieid,
+        userid: userid
     })
     .then(() => alert('success'));
 };
@@ -52,6 +55,7 @@ const submitReview = () => {
   var movieid = props.location.state[0].movieid;
   console.log("getting here");
   Axios.post('http://localhost:3001/api/submitreview', {
+            userid: userid,
             rating: rating,
             review: review,
             date: date,

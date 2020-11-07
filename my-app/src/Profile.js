@@ -2,13 +2,14 @@ import './App.css';
 import Nav from './Nav';
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+//var userid = localStorage.getItem('userid');
 
 function Profile() {
   const [profileInfo, setProfileInfo] = useState([]);
-  
+  const userid = localStorage.getItem('userid');
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/api/getprofile")
+    Axios.get("http://localhost:3001/api/getprofile?id=" + userid)
     .then((response) => {
       setProfileInfo(response.data);
       //console.log(response.data);

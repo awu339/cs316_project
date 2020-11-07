@@ -47,7 +47,7 @@ export default function Login() {
                 console.log(response.data[0].userid);
                 current_userid = response.data[0].userid;
                 console.log(current_userid);
-                //createItem();
+                localStorage.setItem('userid', current_userid);
 
             });
             window.location.href = "http://localhost:3000/home";
