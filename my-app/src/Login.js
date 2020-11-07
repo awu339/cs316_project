@@ -4,6 +4,7 @@ import "./Login.css";
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 var current_userid = "";
+var current_type = "";
 
 //localStorage.setItem('Userid',current_userid);
 
@@ -43,12 +44,12 @@ export default function Login() {
             console.log("correct password"); 
             Axios.get("http://localhost:3001/api/getuserid?id=" + username)
             .then((response) => {
-                console.log("pls get this data");
-                console.log(response.data[0].userid);
                 current_userid = response.data[0].userid;
+                current_type = response.data[0].type;
                 console.log(current_userid);
+                console.log(current_type);
                 localStorage.setItem('userid', current_userid);
-                console.log('userid');
+                localStorage.setItem('type', current_type);
 
             });
             window.location.href = "http://localhost:3000/home";
@@ -59,12 +60,7 @@ export default function Login() {
         }
     }; 
 
-    /* function createItem() {
-      localStorage.setItem("id", current_userid);
-    } */
-
     
- 
   return (
     <div className="Login">
         <h1>movielist.com</h1>

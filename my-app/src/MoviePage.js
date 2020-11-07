@@ -18,6 +18,7 @@ function MoviePage(props) {
     var [date, setDate] = useState("");
 
     const userid = localStorage.getItem('userid');
+    const type = localStorage.getItem('type');
 
 useEffect(() => {
     console.log("getting one movie");
@@ -65,6 +66,15 @@ const submitReview = () => {
             console.log("actually getting here");
         });
 };
+
+//change review table
+/* const report = (reviewid) => {
+  console.log('report');
+  Axios.post(`http://localhost:3001/api/report`, {
+    reviewid: reviewid
+  })
+  .then(() => alert('success'));
+};  */
 
 return (
   <div>
@@ -116,15 +126,35 @@ return (
     <br/><button onClick = {submitReview}>Submit</button>
 
     <h1>All Reviews</h1>
+    
     {reviews.map((val) => {
-      return (
-        <p>
-          User: {val.userid} | 
-          Rating: {val.rating} | 
-          Date: {val.date}
-          <br/> Review: {val.content}
-        </p>
-      );
+      if (type == "admin"){
+        return (
+          <p>
+            User: {val.userid} | 
+            Rating: {val.rating} | 
+            Date: {val.date}
+            <br/> Review: {val.content}
+            {/* <br/> <button onClick={() => report(val.reviewid)}>Report</button> */}
+            <br/> <button>Report</button>
+            <br/> <button>Delete</button>
+            <br/> Type: {type}
+          </p>
+        );
+      }
+      else{
+        return (
+          <p>
+            User: {val.userid} | 
+            Rating: {val.rating} | 
+            Date: {val.date}
+            <br/> Review: {val.content}
+            {" "} <button>Report</button>
+            <br/> Type: {type}
+          </p>
+        );
+      }
+     
     })}
   </div>
 );

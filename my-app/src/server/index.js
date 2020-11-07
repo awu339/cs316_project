@@ -250,7 +250,7 @@ app.get('/api/checkuser', (req, res) =>{
 app.get('/api/getuserid', (req, res) =>{
     var usernameval = req.query.id;
     console.log("check user " + usernameval);
-    const sqlSelect = "SELECT userid FROM User WHERE username = ?";
+    const sqlSelect = "SELECT userid, type FROM User WHERE username = ?";
     db.query(sqlSelect, [usernameval], (err, result) =>{
         if(err) console.log(err);
         console.log(result);
@@ -265,6 +265,17 @@ app.get('/api/getname', (req, res) =>{
     db.query(sqlSelect, [username], (err, result) =>{
         if(err) console.log(err);
         res.send(result);
+    });
+});
+
+app.post('/api/report', (req, res) => {
+    let reviewid = req.body.id;
+
+    const sqlInsert = "INSERT INTO Report (userid, movieid, rating, date, content) VALUES(?, ?, ?, ?, ?)";
+    db.query(sqlInsert, [reviewid], (err, result) => {
+        console.log('here for review');
+        console.log(result);
+        console.log(err);
     });
 });
 
