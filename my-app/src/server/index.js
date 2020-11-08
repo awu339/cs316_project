@@ -94,7 +94,7 @@ app.post('/api/submitreview', (req, res) => {
 app.get("/api/getsearchtitle", (req, res) => {
     let title = '%' + req.query.title + '%';
     console.log(title);
-    let sql = "SELECT * FROM Movies WHERE name LIKE ?;";
+    let sql = "SELECT * FROM Movies WHERE name LIKE ? order by year desc;";
     db.query(sql, [title], (err, result) => {
         res.send(result);
         console.log(result);

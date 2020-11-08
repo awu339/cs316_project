@@ -19,7 +19,7 @@ function Home() {
   //this code is used to load in movies
   // useEffect(() => {
   //   var countInserted = 0;
-  //   var id = 5001000;
+  //   var id = 3800000;
   //   var actors;
   //   var director;
   //   var genre;
@@ -28,12 +28,12 @@ function Home() {
   //   var year;
   //   var runtime;
 
-  //   while (id < 5002000 && countInserted < 1000) {
-  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=554703d8")
+  //   while (id < 3900000) {
+  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=b84a0cfd")
   //     .then(response => response.json())
   //     .then(data => {
   //       if (data.Type == "movie") {
-  //         console.log(data);
+  //         //console.log(data);
   //         actors = data.Actors;
   //         director = data.Director;
   //         genre = data.Genre;
@@ -45,7 +45,7 @@ function Home() {
   //       }
   //     })
   //     .then(blah => {
-  //       console.log('here' + actors + director + genre);
+  //       console.log(actors + director + genre);
   //       Axios.post('http://localhost:3001/api/loadmovies', {
   //         actors: actors, 
   //         director: director, 
@@ -62,6 +62,7 @@ function Home() {
       
   //   }
   //   console.log(id);
+  //   console.log("inserted = " + countInserted);
   // });
 
   return (

@@ -6,12 +6,15 @@ import Nav from './Nav';
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);
+  const [numMovies, setNumMovies] = useState(0);
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getmovies")
     .then((response) => {
-      console.log("test data " + response.data);
       setMovieList(response.data);
+      const data = response.data;
+      const length = response.data.length;
+      setNumMovies(length);
     }); 
   }, []);
 
@@ -19,6 +22,7 @@ function Movies() {
     <div> 
       <Nav/>
       <h1>Movies</h1>
+      <p><b>Our database has {numMovies} total movies to explore.</b></p>
       {movieList.map((val) => {
         return (
         <p>
