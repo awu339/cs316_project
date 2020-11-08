@@ -16,6 +16,7 @@ function Search() {
     console.log('submit query')
 
     if (dropdownType == "Title" || dropdownType == "") {
+      console.log(title);
       Axios.get("http://localhost:3001/api/getsearchtitle?title=" + title)
       .then((response) => {
         setResult(response.data);
@@ -53,7 +54,8 @@ function Search() {
           type="text" 
           name="title" 
           onChange={(e) => {
-              if (dropdownType == "Title") {
+              if (dropdownType == "Title" || dropdownType == "") {
+                console.log('setting title');
                 setTitle(e.target.value);
               } else if (dropdownType == "Year") {
                 setYear(e.target.value);
@@ -69,7 +71,7 @@ function Search() {
       <div className="resultsBox">
         {searchResult.map((val) => {
           return (  
-          <p>
+          <ul>
             <Link to={{ 
               pathname: "/MoviePage", 
               state: [{userid: 1, movieid: val.movieid, watched: 1}]  
@@ -77,13 +79,12 @@ function Search() {
                {val.name}
             </Link>
             , {val.year}
-          </p>
+          </ul>
           );
         })}
       </div>
     </div>
   );
 }
-
 
 export default Search;

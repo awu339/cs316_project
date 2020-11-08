@@ -8,6 +8,7 @@ import { Button } from 'reactstrap';
 function Favorites() {
   const [favoritesList, setFavoritesList] = useState([]);
   const userid = localStorage.getItem('userid');
+  console.log("current user is " + userid);
   
   let unfavorite = (movieid, userid) => {
     console.log("movieid: " + movieid);

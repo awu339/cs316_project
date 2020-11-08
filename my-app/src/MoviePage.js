@@ -54,17 +54,20 @@ const getUsername = (userid) => {
 
 const submitReview = () => {
   var movieid = props.location.state[0].movieid;
+  setDate("" + Date.now());
+  console.log('date' + date);
   console.log("getting here");
   Axios.post('http://localhost:3001/api/submitreview', {
-            userid: userid,
-            rating: rating,
-            review: review,
-            date: date,
-            movieid: movieid
-        }).then(() => {
-            alert("success");
-            console.log("actually getting here");
-        });
+      userid: userid,
+      rating: rating,
+      review: review,
+      date: date,
+      movieid: movieid
+  }).then(() => {
+      alert("success");
+      console.log("actually getting here");
+  });
+  window.location.href = "/MoviePage";
 };
 
 //change review table
@@ -86,10 +89,11 @@ return (
         <p>
           Movie: {val.name} 
           <br/> Year: {val.year} 
-          <br/> Synopsis: {val.synopsis} 
-          <br/> Platform Name: {val.platform_name}
-          <br/> Platform Cost: {val.platform_cost} 
-          <br/> Director ID: {val.director_id}
+          <br/> Genre: {val.genre} 
+          <br/> Synopsis: {val.plot} 
+          <br/> Director: {val.director}
+          <br/> Actors: {val.actors} 
+          <br/> Runtime: {val.runtime}
           <br/> <button onClick={() => addFavorite(val.movieid)}>Add Favorite</button>
         </p>
         );
@@ -113,14 +117,6 @@ return (
       onChange={(e) => {
         setReview(e.target.value);
       }}
-    />
-    <br/> <label>Date</label>
-    <input 
-    type="text" 
-    name="date" 
-    onChange={(e)=> {
-      setDate(e.target.value);
-    }} 
     />
             
     <br/><button onClick = {submitReview}>Submit</button>

@@ -69,14 +69,6 @@ function Newuser() {
                 setType(e.target.value)
                 }} 
             />
-            <label>Date:</label>
-            <input 
-                type="text" 
-                name="date" 
-                onChange={(e)=> {
-                    setDate(e.target.value)
-                }} 
-            />
             <button onClick = {submitUser}>Submit</button>
 
              {userList.map((val) => {
