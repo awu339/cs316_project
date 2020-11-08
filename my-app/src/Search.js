@@ -71,7 +71,7 @@ function Search() {
       <div className="resultsBox">
         {searchResult.map((val) => {
           return (  
-          <p>
+          <ul>
             <Link to={{ 
               pathname: "/MoviePage", 
               state: [{userid: 1, movieid: val.movieid, watched: 1}]  
@@ -79,13 +79,12 @@ function Search() {
                {val.name}
             </Link>
             , {val.year}
-          </p>
+          </ul>
           );
         })}
       </div>
     </div>
   );
 }
-
 
 export default Search;
