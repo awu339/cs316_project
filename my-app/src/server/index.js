@@ -114,7 +114,7 @@ app.get("/api/getsearchyear", (req, res) => {
 
 app.get("/api/gettopmovies", (req, res) => {
     let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
-    sql += "SELECT m.name, a.rating FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
+    sql += "SELECT m.name, a.rating, m.movieid FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
     db.query(sql, (err, result) => {
         res.send(result);
         console.log(result);
