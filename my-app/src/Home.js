@@ -13,58 +13,63 @@ function Home() {
     Axios.get("http://localhost:3001/api/gettopmovies")
     .then((response) => {
       setTopMovies(response.data);
-      console.log(response.data);
     }); 
   }, []);
 
   //this code is used to load in movies
-  // useEffect(() => {
-  //   var countInserted = 0;
-  //   var id = 3902000;
-  //   var actors;
-  //   var director;
-  //   var genre;
-  //   var plot; 
-  //   var name; 
-  //   var year;
-  //   var runtime;
+  useEffect(() => {
+    var countInserted = 0;
+    var id = 8905000;
+    var actors;
+    var director;
+    var genre;
+    var plot; 
+    var name; 
+    var year;
+    var runtime;
+    var poster;
 
-  //   while (id < 3903000) {
-  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=b84a0cfd")
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       if (data.Type == "movie") {
-  //         //console.log(data);
-  //         actors = data.Actors;
-  //         director = data.Director;
-  //         genre = data.Genre;
-  //         plot = data.Plot;
-  //         name = data.Title;
-  //         year = data.Year;
-  //         runtime = data.Runtime;
-  //         countInserted++;
-  //       }
-  //     })
-  //     .then(blah => {
-  //       console.log(actors + director + genre);
-  //       Axios.post('http://localhost:3001/api/loadmovies', {
-  //         actors: actors, 
-  //         director: director, 
-  //         genre: genre,
-  //         plot: plot,
-  //         name: name,
-  //         year: year,
-  //         runtime: runtime
-  //       }).then(() => {
-  //           alert("success");
-  //       });
-  //     });
-  //     id++;
+    while (id < 8905500) {
+      fetch("http://www.omdbapi.com/?i=tt" + id + "&h=600&type=movie&apikey=b84a0cfd")
+      .then(response => response.json())
+      .then(data => {
+        if (data.Type == "movie") {
+          //console.log(data);
+          actors = data.Actors;
+          director = data.Director;
+          genre = data.Genre;
+          plot = data.Plot;
+          name = data.Title;
+          year = data.Year;
+          runtime = data.Runtime;
+          poster = data.poster;
+          if (poster != null)
+            console.log("poster " + poster);
+          countInserted++;
+          console.log(name + " " + year);
+        }
+      })
+      .then(blah => {
+        //console.log(actors + director + genre);
+        Axios.post('http://localhost:3001/api/loadmovies', {
+          actors: actors, 
+          director: director, 
+          genre: genre,
+          plot: plot,
+          name: name,
+          year: year,
+          runtime: runtime, 
+          poster: poster
+        }).then(() => {
+            alert("success");
+        });
+      });
+      id++;
       
-  //   }
-  //   console.log(id);
-  //   console.log("inserted = " + countInserted);
-  // });
+    }
+    console.log(id);
+    console.log("inserted = " + countInserted);
+  });
 
   return (
     <div>
