@@ -24,17 +24,22 @@ function Movies() {
       <Nav/>
       <h1>Movies</h1>
       <p><b>Our database has {numMovies} total movies to explore.</b></p>
-      {movieList.map((val) => {
-        return (
-        <p>
-        <Link to={{ 
-          pathname: "/MoviePage", 
-          state: [{userid: userid, movieid: val.movieid, watched: 0}]  
-          }}> See more </Link>
-          {val.name} | {val.year}
-        </p>
-        );
-      })}
+      <div>
+        {movieList.map((val) => {
+          return (
+            <div className="movie-block">
+    
+              <Link to={{ 
+                pathname: "/MoviePage", 
+                state: [{userid: userid, movieid: val.movieid, watched: 0}]  
+                }}> <img className="movie-img" src={val.poster}/> 
+              </Link>
+              <b>{val.name} </b> {val.year}
+    
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

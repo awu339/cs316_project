@@ -33,11 +33,9 @@ app.get("/api/getmovies", (req, res) => {
 
 app.get("/api/getmovie", (req, res) => {
     let movieid = req.query.id;
-    console.log(req.query);
     const sqlSelect = "SELECT * FROM Movies where movieid = ?;";
     db.query(sqlSelect, [movieid], (err, result) => {
         res.send(result);
-        console.log(result);
     });
 });
 
@@ -152,7 +150,7 @@ app.get("/api/getsearchyear", (req, res) => {
 
 app.get("/api/gettopmovies", (req, res) => {
     let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
-    sql += "SELECT m.name, a.rating, m.movieid FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
+    sql += "SELECT m.name, a.rating, m.movieid, m.poster FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
     db.query(sql, (err, result) => {
         res.send(result);
         console.log(result);
@@ -292,11 +290,10 @@ app.post('/api/loadmovies', (req, res) => {
     var director = req.body.director;
     var actors = req.body.actors;
     var runtime = req.body.runtime;
+    var poster = req.body.poster;
 
-    console.log(name);
-    console.log(year);
-    const sql = "INSERT INTO Movies (name, year, plot, genre, director, actors, runtime) VALUES (?, ?, ?, ?, ?, ?, ?);"
-    db.query(sql, [name, year, plot, genre, director, actors, runtime], (err, result) => {
+    const sql = "INSERT INTO Movies (name, year, plot, genre, director, actors, runtime, poster) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+    db.query(sql, [name, year, plot, genre, director, actors, runtime, poster], (err, result) => {
         console.log(res);
         console.log(err);
         console.log(result);

@@ -8,7 +8,6 @@ function Newuser() {
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
     const [type, setType] = useState('');
-    const [date, setDate] = useState('');
     const [userList, setUserList] = useState([]);
 
     useEffect(() => {
@@ -24,8 +23,7 @@ function Newuser() {
             userID: userID, 
             username: username, 
             pwd: pwd, 
-            type: type, 
-            date: date
+            type: type
         }).then(() => {
             alert("success");
         });

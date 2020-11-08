@@ -91,3 +91,16 @@ nav{
   background-color:#2376c4; 
   color: white;
 }
+
+.movie-img {
+  width: 70px;
+}
+
+.movie-page-img {
+  width: 200px;
+  padding: 20px;
+}
+
+.movie-block {
+  padding: 20px;
+}

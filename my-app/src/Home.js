@@ -8,6 +8,7 @@ import 'react-dropdown/style.css';
 
 function Home() {
   const [topMovies, setTopMovies] = useState([]);
+  const userid = localStorage.getItem('userid');
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/gettopmovies")
@@ -19,7 +20,7 @@ function Home() {
   //this code is used to load in movies
   useEffect(() => {
     var countInserted = 0;
-    var id = 8905000;
+    var id = 4001500;
     var actors;
     var director;
     var genre;
@@ -29,12 +30,12 @@ function Home() {
     var runtime;
     var poster;
 
-    while (id < 8905500) {
-      fetch("http://www.omdbapi.com/?i=tt" + id + "&h=600&type=movie&apikey=b84a0cfd")
+    while (id < 4003500) {
+      fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=b84a0cfd")
       .then(response => response.json())
       .then(data => {
+        
         if (data.Type == "movie") {
-          //console.log(data);
           actors = data.Actors;
           director = data.Director;
           genre = data.Genre;
@@ -42,30 +43,31 @@ function Home() {
           name = data.Title;
           year = data.Year;
           runtime = data.Runtime;
-          poster = data.poster;
-          if (poster != null)
-            console.log("poster " + poster);
+          poster = data.Poster;
           countInserted++;
-          console.log(name + " " + year);
+          //console.log(name + " " + year + " " + poster);
+          return "all good";
         }
       })
       .then(blah => {
-        //console.log(actors + director + genre);
-        Axios.post('http://localhost:3001/api/loadmovies', {
-          actors: actors, 
-          director: director, 
-          genre: genre,
-          plot: plot,
-          name: name,
-          year: year,
-          runtime: runtime, 
-          poster: poster
-        }).then(() => {
-            alert("success");
-        });
+        console.log(blah);
+        if (blah == "all good") {
+          //console.log(actors + director + genre);
+          Axios.post('http://localhost:3001/api/loadmovies', {
+            actors: actors, 
+            director: director, 
+            genre: genre,
+            plot: plot,
+            name: name,
+            year: year,
+            runtime: runtime, 
+            poster: poster
+          }).then(() => {
+              alert("success");
+          });
+        }
       });
       id++;
-      
     }
     console.log(id);
     console.log("inserted = " + countInserted);
@@ -82,9 +84,9 @@ function Home() {
           {movie.name} | Rating: {movie.rating}
           <Link to={{ 
             pathname: "/MoviePage", 
-            state: [{userid: 1, movieid: movie.movieid, watched: 1}]  
+            state: [{userid: userid, movieid: movie.movieid, watched: 1}]  
             }}> 
-            <span> More</span>
+            <img className="movie-img" src={movie.poster} alt="poster"/>
           </Link>
         </p>
         );

@@ -82,22 +82,22 @@ const submitReview = () => {
 return (
   <div>
     <Nav/>
-    <h1>Movie Page</h1>
     {movie.map((val) => {
-        console.log("rendering the movie");
-        return (
-        <p>
-          Movie: {val.name} 
-          <br/> Year: {val.year} 
-          <br/> Genre: {val.genre} 
-          <br/> Synopsis: {val.plot} 
-          <br/> Director: {val.director}
-          <br/> Actors: {val.actors} 
-          <br/> Runtime: {val.runtime}
-          <br/> <button onClick={() => addFavorite(val.movieid)}>Add Favorite</button>
-        </p>
-        );
-      })}
+      console.log("rendering the movie");
+      return (
+      <div>
+        <h2>{val.name} </h2>
+        <img className="movie-page-img" src = {val.poster} alt="Poster"/>
+        <br/> Year: {val.year} 
+        <br/> Genre: {val.genre} 
+        <br/> Synopsis: {val.plot} 
+        <br/> Director: {val.director}
+        <br/> Actors: {val.actors} 
+        <br/> Runtime: {val.runtime}
+        <br/> <button onClick={() => addFavorite(val.movieid)}>Add Favorite</button>
+      </div>
+      );
+    })}
 
     <h1>Leave a Review</h1>
     <label>Rating</label> 
