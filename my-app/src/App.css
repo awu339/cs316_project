@@ -121,4 +121,5 @@ nav{
 .movie-text {
   padding: 10px;
   float:right;
+  text-align: right;
 }

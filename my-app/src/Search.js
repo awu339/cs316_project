@@ -15,6 +15,24 @@ function Search() {
   const [numresults, setnumresults] = useState(0);
   const userid = localStorage.getItem('userid');
 
+  const sortByName = () => {
+    let newList = [...searchResult];
+    newList.sort((a, b) => a.name.localeCompare(b.name));
+    setResult(newList);
+  }
+
+  const sortByYear = () => {
+    let newList = [...searchResult];
+    newList.sort((a, b) => b.year - a.year);
+    setResult(newList);
+  }
+
+  const sortByGenre = () => {
+    let newList = [...searchResult];
+    newList.sort((a, b) => a.genre.localeCompare(b.genre));
+    setResult(newList);
+  }
+
   const submitQuery = () => {
     if (dropdownType == "Title" || dropdownType == "") {
       Axios.get("http://localhost:3001/api/getsearchtitle?title=" + title)
@@ -73,7 +91,12 @@ function Search() {
             }
           }
         />
-        <button onClick = {submitQuery}>Search</button>
+        <span>
+          <button onClick = {submitQuery}>Search</button>
+          <button onClick = {sortByName}>Sort by name</button>
+          <button onClick = {sortByYear}>Sort by year</button>
+          <button onClick = {sortByGenre}>Sort by genre</button>
+        </span>
         <p>{numresults} results</p>
       </div>
 
