@@ -9,9 +9,11 @@ import 'react-dropdown/style.css';
 function Search() {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
+  const [genre, setGenre] = useState('');
   const [searchResult, setResult] = useState([]);
   const [dropdownType, setType] = useState('');
   const [numresults, setnumresults] = useState(0);
+  const userid = localStorage.getItem('userid');
 
   const submitQuery = () => {
     if (dropdownType == "Title" || dropdownType == "") {
@@ -26,13 +28,19 @@ function Search() {
         setResult(response.data);
         setnumresults(response.data.length);
       });
+    } else if (dropdownType == "Genre") {
+      Axios.get("http://localhost:3001/api/getsearchgenre?genre=" + genre)
+      .then((response) => {
+        setResult(response.data);
+        setnumresults(response.data.length);
+      });
     } else {
       console.log("Invalid search submitted")
     }
   };
 
   const options = [
-    'Title', 'Year'
+    'Title', 'Year', 'Genre'
   ];
   const defaultOption = options[0];
 
@@ -57,8 +65,10 @@ function Search() {
                 setTitle(e.target.value);
               } else if (dropdownType == "Year") {
                 setYear(e.target.value);
+              } else if (dropdownType == "Genre") {
+                setGenre(e.target.value);
               } else {
-                // Do nothing for now
+
               }
             }
           }
@@ -70,16 +80,24 @@ function Search() {
       <div className="resultsBox">
         {searchResult.map((val) => {
           return (  
-          <div>
-            <img className="movie-img" src={val.poster} alt="poster"/>
-            <span>
+          <div className="movie-block">
+            <Link to={{ 
+              pathname: "/MoviePage", 
+              state: [{userid: userid, movieid: val.movieid, watched: 1}]  
+              }}> 
+              <img className="movie-img" src={val.poster} alt="poster"/>
+            </Link>
+            
+            <span className="movie-text">
               <Link to={{ 
                 pathname: "/MoviePage", 
-                state: [{userid: 1, movieid: val.movieid, watched: 1}]  
+                state: [{userid: userid, movieid: val.movieid, watched: 1}]  
                 }}> 
                 {val.name}
               </Link>
               , {val.year}
+              <br />
+              {val.genre}
             </span>
             <hr/>
           </div>

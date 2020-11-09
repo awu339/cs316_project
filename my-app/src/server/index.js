@@ -148,6 +148,15 @@ app.get("/api/getsearchyear", (req, res) => {
     })
 });
 
+app.get("/api/getsearchgenre", (req, res) => {
+    let genre = '%' + req.query.genre + '%';
+    let sql = "SELECT * FROM Movies WHERE genre LIKE ? order by year desc;";
+    db.query(sql, [genre], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
 app.get("/api/gettopmovies", (req, res) => {
     let sql = "WITH a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid)";
     sql += "SELECT m.name, a.rating, m.movieid, m.poster FROM Movies m, a WHERE m.movieid = a.movieid ORDER BY a.rating desc;"
