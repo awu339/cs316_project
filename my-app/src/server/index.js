@@ -166,6 +166,14 @@ app.get("/api/gettopmovies", (req, res) => {
     })
 });
 
+app.get("/api/getrecentmovies", (req, res) => {
+    let sql = "SELECT * FROM Movies WHERE year = 2019 or year = 2020 order by year desc;"
+    db.query(sql, (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+});
+
 app.post('/api/insert', (req, res) => {
     console.log('here1');
     const userID = req.body.userID;

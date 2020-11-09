@@ -123,3 +123,10 @@ nav{
   float:right;
   text-align: right;
 }
+
+.movie-span {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
