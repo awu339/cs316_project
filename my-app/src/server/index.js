@@ -278,25 +278,19 @@ app.post('/api/report', (req, res) => {
     db.query(sqlInsert, [reviewid], (err, result) => {
         console.log('here for review');
         console.log(result);
-        console.log(err);
+        //console.log(err);
     });
 });
 
 app.post('/api/loadmovies', (req, res) => {
-    var name = req.body.name;
-    var year = req.body.year;
-    var plot = req.body.plot;
-    var genre = req.body.genre;
-    var director = req.body.director;
-    var actors = req.body.actors;
-    var runtime = req.body.runtime;
-    var poster = req.body.poster;
+    var rows = req.body.rows;
+    console.log(rows);
 
-    const sql = "INSERT INTO Movies (name, year, plot, genre, director, actors, runtime, poster) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
-    db.query(sql, [name, year, plot, genre, director, actors, runtime, poster], (err, result) => {
-        console.log(res);
+    const sql = "INSERT IGNORE INTO Movies (name, year, plot, genre, director, actors, runtime, poster) VALUES ?;"
+    db.query(sql, [rows], (err, result) => {
+        //console.log(res);
         console.log(err);
-        console.log(result);
+        //console.log(result);
     });
 });
 

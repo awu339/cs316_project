@@ -17,62 +17,6 @@ function Home() {
     }); 
   }, []);
 
-  //this code is used to load in movies
-  // useEffect(() => {
-  //   var countInserted = 0;
-  //   var id = 4012000;
-  //   var actors;
-  //   var director;
-  //   var genre;
-  //   var plot; 
-  //   var name; 
-  //   var year;
-  //   var runtime;
-  //   var poster;
-
-  //   while (id < 4018000) {
-  //     fetch("http://www.omdbapi.com/?i=tt" + id + "&type=movie&apikey=b84a0cfd")
-  //     .then(response => response.json())
-  //     .then(data => {
-        
-  //       if (data.Type == "movie") {
-  //         actors = data.Actors;
-  //         director = data.Director;
-  //         genre = data.Genre;
-  //         plot = data.Plot;
-  //         name = data.Title;
-  //         year = data.Year;
-  //         runtime = data.Runtime;
-  //         poster = data.Poster;
-  //         countInserted++;
-  //         //console.log(name + " " + year + " " + poster);
-  //         return "all good";
-  //       }
-  //     })
-  //     .then(blah => {
-  //       console.log(blah);
-  //       if (blah == "all good") {
-  //         //console.log(actors + director + genre);
-  //         Axios.post('http://localhost:3001/api/loadmovies', {
-  //           actors: actors, 
-  //           director: director, 
-  //           genre: genre,
-  //           plot: plot,
-  //           name: name,
-  //           year: year,
-  //           runtime: runtime, 
-  //           poster: poster
-  //         }).then(() => {
-  //             alert("success");
-  //         });
-  //       }
-  //     });
-  //     id++;
-  //   }
-  //   console.log(id);
-  //   console.log("inserted = " + countInserted);
-  // });
-
   return (
     <div>
       <Nav/>
