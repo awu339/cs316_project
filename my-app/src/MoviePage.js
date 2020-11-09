@@ -85,7 +85,7 @@ return (
     {movie.map((val) => {
       console.log("rendering the movie");
       return (
-      <div>
+      <div className = "movie-info">
         <h2>{val.name} </h2>
         <img className="movie-page-img" src = {val.poster} alt="Poster"/>
         <br/> Year: {val.year} 

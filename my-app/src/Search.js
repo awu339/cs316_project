@@ -11,19 +11,20 @@ function Search() {
   const [year, setYear] = useState('');
   const [searchResult, setResult] = useState([]);
   const [dropdownType, setType] = useState('');
+  const [numresults, setnumresults] = useState(0);
 
   const submitQuery = () => {
-    console.log('submit query')
-
     if (dropdownType == "Title" || dropdownType == "") {
       Axios.get("http://localhost:3001/api/getsearchtitle?title=" + title)
       .then((response) => {
         setResult(response.data);
+        setnumresults(response.data.length);
       });
     } else if (dropdownType == "Year") {
       Axios.get("http://localhost:3001/api/getsearchyear?year=" + year)
       .then((response) => {
         setResult(response.data);
+        setnumresults(response.data.length);
       });
     } else {
       console.log("Invalid search submitted")
@@ -63,20 +64,25 @@ function Search() {
           }
         />
         <button onClick = {submitQuery}>Search</button>
+        <p>{numresults} results</p>
       </div>
 
       <div className="resultsBox">
         {searchResult.map((val) => {
           return (  
-          <ul>
-            <Link to={{ 
-              pathname: "/MoviePage", 
-              state: [{userid: 1, movieid: val.movieid, watched: 1}]  
-            }}> 
-               {val.name}
-            </Link>
-            , {val.year}
-          </ul>
+          <div>
+            <img className="movie-img" src={val.poster} alt="poster"/>
+            <span>
+              <Link to={{ 
+                pathname: "/MoviePage", 
+                state: [{userid: 1, movieid: val.movieid, watched: 1}]  
+                }}> 
+                {val.name}
+              </Link>
+              , {val.year}
+            </span>
+            <hr/>
+          </div>
           );
         })}
       </div>

@@ -24,7 +24,7 @@ function Home() {
 
       {topMovies.map((movie) => {
         return (
-        <p>
+        <div>
           {movie.name} | Rating: {movie.rating}
           <Link to={{ 
             pathname: "/MoviePage", 
@@ -32,7 +32,7 @@ function Home() {
             }}> 
             <img className="movie-img" src={movie.poster} alt="poster"/>
           </Link>
-        </p>
+        </div>
         );
       })}
 
