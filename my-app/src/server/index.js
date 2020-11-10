@@ -119,7 +119,7 @@ app.post('/api/submitreview', (req, res) => {
     // const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(?, ?, ?, ?, ?)";
     // db.query(sqlInsert, [uerid, movieid, rating, date, content], (err, result) => {
     // let date = parseInt(req.body.date);
-    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(?, ?, ?, curdate(), ?)";
+    const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content, report) VALUES(?, ?, ?, curdate(), ?, 0)";
     db.query(sqlInsert, [userid, movieid, rating, content], (err, result) => {
         console.log('here for review');
         console.log(result);
@@ -288,14 +288,25 @@ app.get('/api/getname', (req, res) =>{
     });
 });
 
-app.post('/api/report', (req, res) => {
-    let reviewid = req.body.id;
-
-    const sqlInsert = "INSERT INTO Report (userid, movieid, rating, date, content) VALUES(?, ?, ?, ?, ?)";
-    db.query(sqlInsert, [reviewid], (err, result) => {
+app.get('/api/report', (req, res) => {
+    let reviewid = req.query.id;
+    console.log(reviewid);
+    const sqlUpdate = "UPDATE Review SET report = report + 1 WHERE reviewid = ?";
+    db.query(sqlUpdate, [reviewid], (err, result) => {
         console.log('here for review');
         console.log(result);
         //console.log(err);
+    });
+});
+
+app.get('/api/deletereview', (req, res) => {
+    console.log("delete review");
+    var reviewid = req.query.id;
+    //console.log(req.body);
+    //we need to replace userid 1 with whoever is logged in
+    const sqlDelete = "DELETE FROM Review WHERE reviewid = ?";
+    db.query(sqlDelete, [reviewid],  (err, result) => {
+        if (err) console.log(err);
     });
 });
 

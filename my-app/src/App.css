@@ -80,6 +80,10 @@ nav{
   text-align: left;
 }
 
+.b{
+  width: 50px;
+}
+
 .button{
   background-color: white;
   font-size: 15px;

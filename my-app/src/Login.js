@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -50,6 +50,7 @@ export default function Login() {
                 console.log(current_type);
                 localStorage.setItem('userid', current_userid);
                 localStorage.setItem('type', current_type);
+                localStorage.setItem('username', username);
 
             });
             window.location.href = "http://localhost:3000/home";
@@ -66,7 +67,7 @@ export default function Login() {
         <h1>movielist.com</h1>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="username" bsSize="large">
-          <FormLabel>Username</FormLabel>
+          <ControlLabel>Username</ControlLabel>
           <FormControl
             autoFocus
             type="username"
@@ -75,7 +76,7 @@ export default function Login() {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
+          <ControlLabel>Password</ControlLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}

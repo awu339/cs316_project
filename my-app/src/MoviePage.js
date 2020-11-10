@@ -3,6 +3,7 @@ import './App.css';
 import Axios from 'axios';
 import Nav from './Nav';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Button } from 'reactstrap';
 
 function MoviePage(props) {
     const [movieList, setMovieList] = useState([]);
@@ -12,13 +13,16 @@ function MoviePage(props) {
     const [movie, setMovie] = useState([]);
     const[favorite, setFavorite] = useState([]);
     const [reviews, setReviews] = useState([]);
-    var [username, setUsername] = useState('');
+    //var [username, setUsername] = useState('');
     var [rating, setRating] = useState("");
     var [review, setReview] = useState("");
     var [date, setDate] = useState("");
 
     const userid = localStorage.getItem('userid');
     const type = localStorage.getItem('type');
+    const username = localStorage.getItem('username');
+    console.log("username" + username);
+    var flag = "";
 
 useEffect(() => {
     console.log("getting one movie");
@@ -42,7 +46,7 @@ const addFavorite = (movieid) => {
     .then(() => alert('success'));
 };
 
-const getUsername = (userid) => {
+/* const getUsername = (userid) => {
   Axios.get(`http://localhost:3001/api/getusername`, {
         userid: userid
     })
@@ -50,7 +54,7 @@ const getUsername = (userid) => {
       console.log('get username' + response.data);
       return response.data;
     })
-};
+}; */
 
 const submitReview = () => {
   var movieid = props.location.state[0].movieid;
@@ -71,19 +75,37 @@ const submitReview = () => {
 };
 
 //change review table
-/* const report = (reviewid) => {
+const report = (reviewid) => {
   console.log('report');
-  Axios.post(`http://localhost:3001/api/report`, {
-    reviewid: reviewid
-  })
+  console.log(reviewid);
+  Axios.get("http://localhost:3001/api/report?id=" + reviewid)
   .then(() => alert('success'));
-};  */
+};  
+
+const deleteReview = (reviewid) => {
+  console.log('report');
+  console.log(reviewid);
+  Axios.get("http://localhost:3001/api/deletereview?id=" + reviewid)
+  .then(() => alert('success'));
+};  
+
+/* const flagReport = (report) => {
+  console.log(report);
+  if (report >= 4){
+    flag = 1;
+  }
+  else{
+    flag = 0;
+  }
+};
+ */
 
 return (
   <div>
     <Nav/>
     {movie.map((val) => {
       console.log("rendering the movie");
+      
       return (
       <div className = "movie-info">
         <h2>{val.name} </h2>
@@ -94,7 +116,7 @@ return (
         <br/> Director: {val.director}
         <br/> Actors: {val.actors} 
         <br/> Runtime: {val.runtime}
-        <br/> <button onClick={() => addFavorite(val.movieid)}>Add Favorite</button>
+        <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
       </div>
       );
     })}
@@ -119,22 +141,25 @@ return (
       }}
     />
             
-    <br/><button onClick = {submitReview}>Submit</button>
-
+    <br/><Button outline color="primary" className="w-25" onClick = {submitReview}>Submit</Button>
+    <br />
     <h1>All Reviews</h1>
     
     {reviews.map((val) => {
+      console.log(val.report);
+      console.log(username);
       if (type == "admin"){
         return (
           <p>
-            User: {val.userid} | 
+            User: {username} | 
             Rating: {val.rating} | 
             Date: {val.date}
-            <br/> Review: {val.content}
-            {/* <br/> <button onClick={() => report(val.reviewid)}>Report</button> */}
-            <br/> <button>Report</button>
-            <br/> <button>Delete</button>
-            <br/> Type: {type}
+            <br/> Review: {val.content} | 
+            Reported: {val.report}
+            
+            <br/> <Button outline color="primary" className="w-25" onClick={() => report(val.reviewid)}>Report</Button> 
+            {" "} 
+            <Button outline color="primary" className="w-25" onClick={() => deleteReview(val.reviewid)}>Delete</Button>
           </p>
         );
       }
@@ -145,7 +170,7 @@ return (
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content}
-            {" "} <button>Report</button>
+            {" "} <br/> <Button outline color="primary" className="w-25" onClick={() => report(val.reviewid)}>Report</Button>
             <br/> Type: {type}
           </p>
         );
