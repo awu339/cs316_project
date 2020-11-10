@@ -9,6 +9,8 @@ import 'react-dropdown/style.css';
 function Home() {
   const [topMovies, setTopMovies] = useState([]);
   const [recentMovies, setRecentMovies] = useState([]);
+  const [number, setNumber] = useState(0);
+  const [dropdown, setDropdown] = useState("");
   const userid = localStorage.getItem('userid');
 
   useEffect(() => {
@@ -25,12 +27,40 @@ function Home() {
     }); 
   }, []);
 
+  const options = [
+    'Top 10', 'Top 25', 'Top 50'
+  ];
+  const defaultOption = options[0];
+
+  let num = 10;
+
   return (
     <div>
       <Nav/>
-      <h1>Top trending movies 2020</h1>
+      <h1>Top! trending movies 2020</h1>
 
-      {topMovies.map((movie) => {
+      <Dropdown 
+        options={options} 
+        value={defaultOption} 
+        placeholder="Options" 
+        onChange={(e) => {
+          
+           console.log(e.value);
+          if (e.value == "Top 10" || e.value == "") {
+            setNumber(10);
+            num = 10;
+          } else if (e.value == "Top 25") {
+            setNumber(25);
+            num = 25;
+          } else if (e.value == "Top 50") {
+            setNumber(50);
+            num = 50;
+          } 
+        }}
+      />
+
+      {topMovies.slice(0,num).map((movie) => {
+        console.log(number);
         return (
         <div>
           {movie.name} | Rating: {movie.rating}
