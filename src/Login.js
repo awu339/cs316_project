@@ -67,7 +67,7 @@ export default function Login() {
         <h1>movielist.com</h1>
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="username" bsSize="large">
-          <FormLabel>Username</FormLabel>
+          <ControlLabel>Username</ControlLabel>
           <FormControl
             autoFocus
             type="username"
@@ -76,7 +76,7 @@ export default function Login() {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
+          <ControlLabel>Password</ControlLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}
