@@ -37,7 +37,7 @@ function Home() {
   return (
     <div>
       <Nav/>
-      <h1>Top! trending movies 2020</h1>
+      <h1>Top trending movies 2020</h1>
 
       <Dropdown 
         options={options} 
@@ -59,7 +59,7 @@ function Home() {
         }}
       />
 
-      {topMovies.slice(0,num).map((movie) => {
+      {topMovies.slice(0,number).map((movie) => {
         console.log(number);
         return (
         <div>
