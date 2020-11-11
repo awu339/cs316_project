@@ -6,12 +6,36 @@ const cors = require('cors');
 //const userid = localStorage.getItem('userid');
   
 
-const db = mysql.createPool({
-    host: 'localhost',
+const db = mysql.createConnection({
+    /* connectionLimit: 1000,
+    connectionTimeout: 60 * 60 * 1000,
+    acquireTimeout: 60 * 60 * 1000,
+    timeout: 60 * 60 * 1000,  */
+    host: 'vcm-17529.vm.duke.edu',
     user: 'root',
     password: 'password',
     database: 'mydb'
 });
+
+db.connect();
+/* db.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+    let sql = "SELECT * FROM User;"
+
+    db.query(sql, (err, result) => {
+        console.log('here');
+        console.log(result);
+        console.log(err);
+    });
+}); */
+
+if (db){
+    console.log("success");
+}
+else{
+    console.log("fail");
+}
 
 app.use(cors());
 app.use(express.json());
@@ -176,13 +200,18 @@ app.get("/api/getrecentmovies", (req, res) => {
 
 app.post('/api/insert', (req, res) => {
     console.log('here1');
-    const userID = req.body.userID;
     const username = req.body.username;
     const pwd = req.body.pwd;
     const type = req.body.type;
-
-    const sqlInsert = "INSERT INTO User (userID, username, password, type, date_created) VALUES(?, ?, ?, ?, curdate())";
-    db.query(sqlInsert, [userID, username, pwd, type], (err, result) => {
+    console.log(username);
+    let sql = "SELECT * FROM User;"
+    const sqlInsert = "INSERT INTO User (username, password, type, date_created) VALUES(?, ?, ?, curdate());";
+    db.query(sql, (err, result) => {
+        console.log('here');
+        console.log(result);
+        console.log(err);
+    });
+    db.query(sqlInsert, [username, pwd, type], (err, result) => {
         console.log('here');
         console.log(result);
         console.log(err);
