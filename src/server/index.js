@@ -41,6 +41,17 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.post("/api/reviewexists", (req, res) => {
+    let movieid = req.body.movieid;
+    let userid = req.body.userid;
+    const sqlSelect = "SELECT * FROM Review where movieid = ? AND userid = ?;";
+    db.query(sqlSelect, [movieid, userid], (err, result) => {
+        console.log("what's happening " + result);
+        res.send(result);
+    });
+});
+
+
 app.get("/api/getusers", (req, res) => {
     const sqlSelect = "SELECT * FROM User;";
     db.query(sqlSelect, (err, result) => {
@@ -132,6 +143,29 @@ app.get("/api/getusername", (req, res) => {
     db.query(sqlSelect, [userid], (err, result) => {
         res.send(result);
     });
+});
+
+app.post('/api/updatereview', (req, res) => {
+    let userid = req.body.userid;
+    let rating = req.body.rating;
+    let content = req.body.review;
+    let movieid = req.body.movieid;
+    let date = req.body.date;
+    // const sqlInsert = "INSERT INTO Review (userid, movieid, rating, date, content) VALUES(?, ?, ?, ?, ?)";
+    // db.query(sqlInsert, [uerid, movieid, rating, date, content], (err, result) => {
+    // let date = parseInt(req.body.date);
+    let sql = "DELETE FROM Review WHERE userid = ?;";
+    let sql2 = "INSERT INTO Review (userid, movieid, rating, date, content, report) VALUES(?, ?, ?, curdate(), ?, 0);";
+    db.query(sql, [userid], (err, result) => {
+        //res.send(result);
+        console.log("sql");
+        console.log(result);
+    })
+    db.query(sql2,[userid, movieid, rating, content], (err, result) => {
+        res.send(result);
+        console.log("sql2");
+        console.log(result);
+    })
 });
 
 app.post('/api/submitreview', (req, res) => {
