@@ -12,6 +12,7 @@ function MoviePage(props) {
     const [watched, setWatched] = useState('');
     const [movie, setMovie] = useState([]);
     const[favorite, setFavorite] = useState([]);
+    const[reviewexists, setReviewExists] = useState([]);
     const [reviews, setReviews] = useState([]);
     //var [username, setUsername] = useState('');
     var [rating, setRating] = useState("");
@@ -34,6 +35,12 @@ useEffect(() => {
     Axios.get("http://localhost:3001/api/getreviews?id=" + movieid)
     .then((response) => {
       setReviews(response.data);
+    })
+    Axios.post("http://localhost:3001/api/reviewexists?id=", {
+      movieid: movieid,
+      userid: userid})
+    .then((response) => {
+      setReviewExists(response.data);
     })
 }, []);
 
@@ -74,6 +81,22 @@ const submitReview = () => {
   window.location.href = "/MoviePage";
 };
 
+const UpdateReview = () => {
+  var movieid = props.location.state[0].movieid;
+  setDate("" + Date.now());
+  Axios.post('http://localhost:3001/api/updatereview', {
+      userid: userid,
+      rating: rating,
+      review: review,
+      date: date,
+      movieid: movieid
+  }).then(() => {
+      alert("success");
+      console.log("actually getting here");
+  });
+  window.location.href = "/MoviePage";
+};
+
 //change review table
 const report = (reviewid) => {
   console.log('report');
@@ -87,6 +110,7 @@ const deleteReview = (reviewid) => {
   console.log(reviewid);
   Axios.get("http://localhost:3001/api/deletereview?id=" + reviewid)
   .then(() => alert('success'));
+  window.location.href = "/MoviePage";
 };  
 
 /* const flagReport = (report) => {
@@ -105,53 +129,97 @@ return (
     <Nav/>
     {movie.map((val) => {
       console.log("rendering the movie");
+      console.log(reviewexists);
       
-      return (
-      <div className = "movie-info">
-        <h2>{val.name} </h2>
-        <img className="movie-page-img" src = {val.poster} alt="Poster"/>
-        <br/> Year: {val.year} 
-        <br/> Genre: {val.genre} 
-        <br/> Synopsis: {val.plot} 
-        <br/> Director: {val.director}
-        <br/> Actors: {val.actors} 
-        <br/> Runtime: {val.runtime}
-        <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
-      </div>
-      );
-    })}
+      if (reviewexists === undefined || reviewexists.length == 0){
+        return (
+        <div className = "movie-info">
+          <h2>{val.name} </h2>
+          <img className="movie-page-img" src = {val.poster} alt="Poster"/>
+          <br/> Year: {val.year} 
+          <br/> Genre: {val.genre} 
+          <br/> Synopsis: {val.plot} 
+          <br/> Director: {val.director}
+          <br/> Actors: {val.actors} 
+          <br/> Runtime: {val.runtime}
+          <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
 
-    <h1>Leave a Review</h1>
-    <label>Rating</label> 
-    <input
-      type="number"
-      min="0"
-      max="5"
-      name="rating"
-      onChange={(e) => {
-        setRating(e.target.value);
-      }}
-    />
-    <br/> <label>Review</label> 
-    <input
-      type="text"
-      name="review"
-      onChange={(e) => {
-        setReview(e.target.value);
-      }}
-    />
-            
-    <br/><Button outline color="primary" className="w-25" onClick = {submitReview}>Submit</Button>
+          <h1>Leave a Review</h1>
+          <label>Rating</label> 
+          <input
+        type="number"
+        min="0"
+        max="5"
+        name="rating"
+        onChange={(e) => {
+          setRating(e.target.value);
+        }}
+      />
+      <br/> <label>Review</label> 
+      <input
+        type="text"
+        name="review"
+        onChange={(e) => {
+          setReview(e.target.value);
+        }}
+      />
+              
+      <br/><Button outline color="primary" className="w-25" onClick = {submitReview}>Submit</Button>
+        </div>
+        );}
+  
+        else{
+          return (
+            <p>
+              <h2>{val.name} </h2>
+          <img className="movie-page-img" src = {val.poster} alt="Poster"/>
+          <br/> Year: {val.year} 
+          <br/> Genre: {val.genre} 
+          <br/> Synopsis: {val.plot} 
+          <br/> Director: {val.director}
+          <br/> Actors: {val.actors} 
+          <br/> Runtime: {val.runtime}
+          <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
+
+          <h1>Update Your Review</h1>
+          <br/>User: {username}
+          <br/>Rating: {reviewexists[0].rating}
+          <br/>Review: {reviewexists[0].content}
+          <br/>
+          <br/> <label>New Rating</label> 
+          <input
+        type="number"
+        min="0"
+        max="5"
+        name="rating"
+        onChange={(e) => {
+          setRating(e.target.value);
+        }}
+      />
+      <br/> <label>New Review</label> 
+      <input
+        type="text"
+        name="review"
+        onChange={(e) => {
+          setReview(e.target.value);
+        }}
+      />
+      <br/><Button outline color="primary" className="w-25" onClick = {UpdateReview}>Update</Button>
+     <br/> <Button outline color="primary" className="w-25" onClick={() => deleteReview(reviewexists[0].reviewid)}>Delete</Button>
+
+            </p>
+          );
+        }
+        
+      })}
     <br />
     <h1>All Reviews</h1>
     
     {reviews.map((val) => {
-      console.log(val.report);
-      console.log(username);
       if (type == "admin"){
         return (
           <p>
-            User: {username} | 
+            User: {val.userid} | 
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content} | 
@@ -166,7 +234,7 @@ return (
       else{
         return (
           <p>
-            User: {username} | 
+            User: {val.userid} | 
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content}
