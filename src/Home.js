@@ -16,7 +16,10 @@ function Home() {
   useEffect(() => {
     Axios.get("http://localhost:3001/api/gettopmovies")
     .then((response) => {
-      setTopMovies(response.data);
+      if (response != null){
+        setTopMovies(response.data);
+      }
+     
     }); 
   }, []);
 
@@ -35,10 +38,10 @@ function Home() {
   let num = 10;
 
   return (
+   
     <div>
       <Nav/>
       <h1>Top trending movies 2020</h1>
-
       <Dropdown 
         options={options} 
         value={defaultOption} 

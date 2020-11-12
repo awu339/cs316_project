@@ -4,23 +4,24 @@ import Axios from 'axios';
 import Nav from './Nav';
 
 function Newuser() {
-    const [userID, setUserID] = useState('');
+    //const [userID, setUserID] = useState('');
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
     const [type, setType] = useState('');
     const [userList, setUserList] = useState([]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         Axios.get("http://localhost:3001/api/getusers")
         .then((response) => {
           setUserList(response.data);
         }); 
-    }, []);
+    }, []); */
 
     const submitUser = () => {
         console.log('here2');
+        console.log(username);
         Axios.post('http://localhost:3001/api/insert', {
-            userID: userID, 
+            //userID: userID, 
             username: username, 
             pwd: pwd, 
             type: type
@@ -35,14 +36,14 @@ function Newuser() {
       
       <h1>Register new user</h1>
         <div className="form">
-            <label>UserID:</label>
+           {/*  <label>UserID:</label>
             <input 
                 type="text" 
                 name="userID" 
                 onChange={(e)=> {
                 setUserID(e.target.value)
                 }} 
-            />
+            /> */}
             <label>Username:</label>
             <input 
                 type="text" 
@@ -69,14 +70,14 @@ function Newuser() {
             />
             <button onClick = {submitUser}>Submit</button>
 
-             {userList.map((val) => {
+             {/* {userList.map((val) => {
               return (
               <p>
                 Username: {val.username} |
                 Date created: {val.date_created}
               </p>
               );
-            })}
+            })} */}
         </div>
     </div>
   );

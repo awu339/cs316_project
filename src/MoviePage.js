@@ -166,12 +166,11 @@ return (
       else{
         return (
           <p>
-            User: {val.userid} | 
+            User: {username} | 
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content}
             {" "} <br/> <Button outline color="primary" className="w-25" onClick={() => report(val.reviewid)}>Report</Button>
-            <br/> Type: {type}
           </p>
         );
       }
