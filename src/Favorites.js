@@ -15,12 +15,13 @@ function Favorites() {
     Axios.get("http://localhost:3001/api/delete?id=" + movieid + "&userid=" + userid);
     //Axios.get('http://localhost:3001/api/delete', { id: movieid, userid: userid });
     console.log("userid" + userid);
-
+    window.location.href = "/Favorites"
   };
 
   let watched = (movieid) => {
     console.log("watched" + movieid);
     Axios.get("http://localhost:3001/api/watched?id=" + movieid + "&userid=" + userid);
+    window.location.href = "/Favorites"
   };
  
   useEffect(() => {

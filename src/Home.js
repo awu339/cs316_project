@@ -17,6 +17,7 @@ function Home() {
   const username = localStorage.getItem('username');
 
   const [profileInfo, setProfileInfo] = useState([]);
+  
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getprofile?id=" + userid)
@@ -49,10 +50,12 @@ function Home() {
       <Nav/>
       <h1>Welcome {username}!</h1>
       {profileInfo.map((val) => {
+        var date = val.date_created.split("T");
+        date = date[0];
         return (
         <p>
           User type: {val.type} | 
-          Date created: {val.date_created}
+          Date created: {date}
         </p>
         );
       })}
