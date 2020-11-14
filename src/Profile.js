@@ -9,6 +9,7 @@ function Profile() {
   const [profileInfo, setProfileInfo] = useState([]);
   const [myReviews, setMyReviews] = useState([]);
   const userid = localStorage.getItem('userid');
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getprofile?id=" + userid)
@@ -30,7 +31,7 @@ function Profile() {
   return (
     <div>
       <Nav/>
-      <h1>Profile</h1>
+      {/* <h1>Hello {username}!</h1>
       {profileInfo.map((val) => {
         return (
         <p>
@@ -41,7 +42,7 @@ function Profile() {
           Date created: {val.date_created}
         </p>
         );
-      })}
+      })} */}
     <h1> My Reviews </h1>
       {myReviews.map((val) => {
         return (

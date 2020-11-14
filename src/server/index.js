@@ -197,11 +197,24 @@ app.get("/api/gettopmovies", (req, res) => {
 });
 
 app.get("/api/getrecentmovies", (req, res) => {
-    let sql = "SELECT * FROM Movies WHERE year = 2019 or year = 2020 order by year desc;"
+
+    /* let sql = "CREATE VIEW a AS (SELECT movieid, AVG(rating) as rating FROM Review GROUP BY movieid);";
+    let sql2 = "SELECT m.name, a.rating, m.movieid, m.poster FROM Movies m, a WHERE m.movieid = a.movieid and m.year = 2019 or m.year = 2020 order by m.year desc;"
+    db.query(sql, (err, result) => {
+        //res.send(result);
+        console.log("sql");
+        console.log(result);
+    })
+    db.query(sql2, (err, result) => {
+        res.send(result);
+        console.log("sql2");
+        console.log(result);
+    }) */
+   let sql = "SELECT * FROM Movies m WHERE year = 2019 or year = 2020 order by year desc;"
     db.query(sql, (err, result) => {
         res.send(result);
         console.log(result);
-    })
+    }) 
 });
 
 app.post('/api/insert', (req, res) => {
@@ -362,7 +375,7 @@ app.get('/api/allreports', (req, res) => {
     const sqlSelect = "SELECT r.reviewid, r.movieid, m.name, u.username FROM Review r, Movies m, User u WHERE r.report > 0 and r.movieid = m.movieid and r.userid = u.userid;";
     db.query(sqlSelect,  (err, result) => {
         if (err) console.log(err);
-        console.log(result);
+        //console.log(result);
         res.send(result);
     });
 }); 
@@ -375,7 +388,7 @@ app.get('/api/myreviews', (req, res) => {
     // const sqlSelect = "SELECT r.reviewid, r.movieid, m.name, r.rating FROM Review r, Movies m WHERE r.movieid = m.movieid and r.userid = ?;";
     db.query(sqlSelect, [userid], (err, result) => {
         if (err) console.log(err);
-        console.log(result);
+        //console.log(result);
         res.send(result);
     });
 }); 

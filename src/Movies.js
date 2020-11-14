@@ -3,11 +3,13 @@ import './App.css';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import Nav from './Nav';
+import image from './nomovie.jpg';
 
 function Movies() {
   const [movieList, setMovieList] = useState([]);
   const [numMovies, setNumMovies] = useState(0);
   const userid = localStorage.getItem('userid');
+  
 
   useEffect(() => {
     Axios.get("http://localhost:3001/api/getmovies")
@@ -31,34 +33,25 @@ function Movies() {
           if (val.poster === 'N/A'){
             return (
               <div className="movie-block">
-      
                 <Link to={{ 
                   pathname: "/MoviePage", 
                   state: [{userid: userid, movieid: val.movieid, watched: 0}]  
-                  }}> {/* <img className="movie-img" src={val.poster}/>  */}
-  
-                  <img className="movie-img" src='/nomovie.jpg' />
-  
+                  }}> 
+                  <img className="icon-img" src={image} />
                 </Link>
                 <b>{val.name} </b> {val.year}
-      
               </div>
             );
           }
           else{
             return (
               <div className="movie-block">
-      
                 <Link to={{ 
                   pathname: "/MoviePage", 
                   state: [{userid: userid, movieid: val.movieid, watched: 0}]  
                   }}> <img className="movie-img" src={val.poster}/> 
-  
-                 {/*  <img className="movie-img" src={val.poster} onError="this.src='/nomovie.jpg'" /> */}
-  
                 </Link>
                 <b>{val.name} </b> {val.year}
-      
               </div>
             );
           }

@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Nav from './Nav';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Button } from 'reactstrap';
+import image from './nomovie.jpg';
 
 function MoviePage(props) {
     const [movieList, setMovieList] = useState([]);
@@ -106,21 +107,41 @@ return (
     {movie.map((val) => {
       console.log("rendering the movie");
       
-      return (
-      <div className = "movie-info">
-        <h2>{val.name} </h2>
-        <img className="movie-page-img" src = {val.poster} alt="Poster"/>
-        
-        <br/> Year: {val.year} 
-        <br/> Genre: {val.genre} 
-        <br/> Synopsis: {val.plot} 
-        <br/> Director: {val.director}
-        <br/> Actors: {val.actors} 
-        <br/> Runtime: {val.runtime}
-
-        <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
-      </div>
-      );
+      if(val.poster == "N/A"){
+        return (
+          <div className = "movie-info">
+            <h2>{val.name} </h2>
+            <img className="movie-page-img" src = {image} alt="Poster"/>
+            
+            <br/> Year: {val.year} 
+            <br/> Genre: {val.genre} 
+            <br/> Synopsis: {val.plot} 
+            <br/> Director: {val.director}
+            <br/> Actors: {val.actors} 
+            <br/> Runtime: {val.runtime}
+    
+            <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
+          </div>
+          );
+      }
+      else{
+        return (
+          <div className = "movie-info">
+            <h2>{val.name} </h2>
+            <img className="movie-page-img" src = {val.poster} alt="Poster"/>
+            
+            <br/> Year: {val.year} 
+            <br/> Genre: {val.genre} 
+            <br/> Synopsis: {val.plot} 
+            <br/> Director: {val.director}
+            <br/> Actors: {val.actors} 
+            <br/> Runtime: {val.runtime}
+    
+            <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
+          </div>
+          );
+      }
+      
     })}
 
     <h1>Leave a Review</h1>

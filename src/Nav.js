@@ -10,8 +10,9 @@ function Nav() {
 
     if(type === 'admin'){
         return (
-    
+            
             <nav>
+                <h2>movielist.com</h2>
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
@@ -19,14 +20,14 @@ function Nav() {
                 <Link style={navStyle} to='/movies'>
                     <li>Movies</li>
                 </Link>
+                <Link style={navStyle} to='/search'>
+                    <li>Search</li>
+                </Link>
                 <Link style={navStyle} to='/favorites'>
                     <li>Favorites</li>
                 </Link>
                 <Link style={navStyle} to='/profile'>
-                    <li>Profile</li>
-                </Link>
-                <Link style={navStyle} to='/search'>
-                    <li>Search</li>
+                    <li>Reviews</li>
                 </Link>
                 <Link style={navStyle} to='/friends'>
                     <li>Friends</li>
@@ -38,6 +39,7 @@ function Nav() {
                     <li>Logout</li> 
                 </Link>
                 </u1>
+                <br />
             </nav>
                 
           );
@@ -46,6 +48,7 @@ function Nav() {
         return (
     
             <nav>
+                <h1>movielist.com</h1>
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
@@ -53,14 +56,14 @@ function Nav() {
                 <Link style={navStyle} to='/movies'>
                     <li>Movies</li>
                 </Link>
+                <Link style={navStyle} to='/search'>
+                    <li>Search</li>
+                </Link>
                 <Link style={navStyle} to='/favorites'>
                     <li>Favorites</li>
                 </Link>
                 <Link style={navStyle} to='/profile'>
-                    <li>Profile</li>
-                </Link>
-                <Link style={navStyle} to='/search'>
-                    <li>Search</li>
+                    <li>Reviews</li>
                 </Link>
                 <Link style={navStyle} to='/friends'>
                     <li>Friends</li>
@@ -69,11 +72,9 @@ function Nav() {
                     <li>Logout</li> 
                 </Link>
                 </u1>
-            </nav>
-                
+            </nav>   
           );
     }
-
 
  
 }
