@@ -13,7 +13,10 @@ function Nav() {
         return (
             
             <nav>
-                <img className="logo-img" src={logo} />
+                <Link to={{ 
+                  pathname: "/Home"}}> 
+                  <img className="logo-img" src={logo}/>
+                </Link>
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
@@ -49,7 +52,10 @@ function Nav() {
         return (
     
             <nav>
-                <img className="logo-img" src={logo} />
+                <Link to={{ 
+                  pathname: "/Home"}}> 
+                  <img className="logo-img" src={logo}/>
+                </Link>
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
