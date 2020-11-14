@@ -96,6 +96,7 @@ nav{
   color: white;
 }
 
+/* new stuff */
 .movie-img {
   width: 70px;
   margin: 10px;
@@ -105,6 +106,12 @@ nav{
   width: 40px;
   margin: 10px;
 }
+
+.logo-img {
+  width: 50px;
+  margin: 10px;
+}
+
 
 .movie-page-img {
   width: 200px;

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
+import logo from './cinema.png';
 
 function Nav() {
     const type = localStorage.getItem('type');
@@ -12,7 +13,7 @@ function Nav() {
         return (
             
             <nav>
-                <h2>movielist.com</h2>
+                <img className="logo-img" src={logo} />
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
@@ -48,7 +49,7 @@ function Nav() {
         return (
     
             <nav>
-                <h1>movielist.com</h1>
+                <img className="logo-img" src={logo} />
                 <u1 className="navlinks">
                 <Link style={navStyle} to='/home'>
                     <li>Home</li>
