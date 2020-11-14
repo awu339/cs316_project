@@ -2,10 +2,12 @@ import './App.css';
 import Nav from './Nav';
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 //var userid = localStorage.getItem('userid');
 
 function Profile() {
   const [profileInfo, setProfileInfo] = useState([]);
+  const [myReviews, setMyReviews] = useState([]);
   const userid = localStorage.getItem('userid');
 
   useEffect(() => {
@@ -16,6 +18,15 @@ function Profile() {
     }); 
   }, []);  
 
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/myreviews?id=" + userid)
+    .then((response) => {
+      setMyReviews(response.data);
+      console.log("reviews");
+      console.log(response.data);
+    }); 
+  }, []);  
+
   return (
     <div>
       <Nav/>
@@ -23,13 +34,25 @@ function Profile() {
       {profileInfo.map((val) => {
         return (
         <p>
-          Userid: {val.userid} 
-          <br />
           Username: {val.username} 
           <br />
           User type: {val.type} 
           <br />
           Date created: {val.date_created}
+        </p>
+        );
+      })}
+    <h1> My Reviews </h1>
+      {myReviews.map((val) => {
+        return (
+        <p>
+          Movie: {val.name} | 
+          Rating: {val.rating} | 
+          Review #: {val.reviewid} | 
+          <Link to={{ pathname: "/MoviePage", 
+                state: [{movieid: val.movieid}]  
+                }}> show
+         </Link>
         </p>
         );
       })}
