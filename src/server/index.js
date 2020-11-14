@@ -5,12 +5,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 //const userid = localStorage.getItem('userid');
   
-
 const db = mysql.createConnection({
-    /* connectionLimit: 1000,
-    connectionTimeout: 60 * 60 * 1000,
-    acquireTimeout: 60 * 60 * 1000,
-    timeout: 60 * 60 * 1000,  */
     host: 'vcm-17529.vm.duke.edu',
     user: 'root',
     password: 'password',
@@ -18,17 +13,6 @@ const db = mysql.createConnection({
 });
 
 db.connect();
-/* db.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-    let sql = "SELECT * FROM User;"
-
-    db.query(sql, (err, result) => {
-        console.log('here');
-        console.log(result);
-        console.log(err);
-    });
-}); */
 
 if (db){
     console.log("success");
@@ -381,15 +365,18 @@ app.get('/api/deletereview', (req, res) => {
 
 app.post('/api/loadmovies', (req, res) => {
     var rows = req.body.rows;
-    console.log(rows);
 
     const sql = "INSERT IGNORE INTO Movies (name, year, plot, genre, director, actors, runtime, poster) VALUES ?;"
     db.query(sql, [rows], (err, result) => {
-        //console.log(res);
-        console.log(err);
-        //console.log(result);
     });
 });
+
+app.get('/api/getgenres', (req, res) => {
+    const sql = "SELECT DISTINCT genre FROM Movies;"
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+})
 
 app.listen(3001, () => {
     console.log('running server on port 3001');
