@@ -357,6 +357,17 @@ app.post('/api/loadmovies', (req, res) => {
     });
 });
 
+app.get('/api/allreports', (req, res) => {
+    console.log("all reports");
+    // const sqlSelect = "SELECT r.reviewid, m.name FROM Review r, Movies m WHERE r.report > 0 and r.movieid = m.movieid;";
+    const sqlSelect = "SELECT r.reviewid, r.movieid, m.name, u.username FROM Review r, Movies m, User u WHERE r.report > 0 and r.movieid = m.movieid and r.userid = u.userid;";
+    db.query(sqlSelect,  (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        res.send(result);
+    });
+}); 
+
 app.listen(3001, () => {
     console.log('running server on port 3001');
 }); 
