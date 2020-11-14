@@ -76,7 +76,7 @@ app.get("/api/getmovie", (req, res) => {
 
 app.get("/api/getreviews", (req, res) => {
     let movieid = req.query.id;
-    const sqlSelect = "SELECT * FROM Review where movieid = ?;";
+    const sqlSelect = "SELECT r.reviewid, r.userid, r.movieid, r.rating, r.date, r.content, u.username FROM Review r, User u where movieid = ? AND r.userid = u.userid;";
     db.query(sqlSelect, [movieid], (err, result) => {
         res.send(result);
     });
@@ -239,11 +239,9 @@ app.get("/api/getrecentmovies", (req, res) => {
 });
 
 app.post('/api/insert', (req, res) => {
-    console.log('here1');
     const username = req.body.username;
     const pwd = req.body.pwd;
     const type = req.body.type;
-    console.log(username);
     let sql = "SELECT * FROM User;"
     const sqlInsert = "INSERT INTO User (username, password, type, date_created) VALUES(?, ?, ?, curdate());";
     db.query(sql, (err, result) => {
@@ -286,6 +284,61 @@ app.post('/api/insertfriendfavorite', (req, res) => {
         console.log('here');
         console.log(result);
         console.log(err);
+    });
+});
+
+app.get('/api/unfriend', (req, res) => {
+    var user1 = req.query.id;
+    var user2 = req.query.userid;
+    const sqlDelete = "DELETE FROM Friend WHERE user1 = ? and user2 = ?";
+    db.query(sqlDelete, [user1, user2],  (err, result) => {
+        if (err) console.log(err);
+    });
+});
+
+app.get('/api/addfriend', (req, res) => {
+    var user1 = req.query.id;
+    var user2 = req.query.userid;
+    const sqlInsert = "INSERT INTO Friend (user1, user2) VALUES(?, ?)";
+    db.query(sqlInsert, [user1, user2],  (err, result) => {
+        if (err) console.log(err);
+    });
+});
+
+app.post('/api/getuserfav', (req, res) => {
+    console.log('here fav');
+    console.log(req.body.userid);
+    console.log(req.body.movieid);
+    const userid = req.body.userid;
+    const movieid = req.body.movieid;
+    const sql = "SELECT * FROM Favorites WHERE userid = ? AND movieid = ?;";
+    db.query(sql, [userid, movieid], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.post("/api/friendexists", (req, res) => {
+    let user1 = req.body.user1;
+    let user2 = req.body.user2;
+    const sqlSelect = "SELECT * FROM Friend where user1 = ? AND user2 = ?;";
+    db.query(sqlSelect, [user1, user2], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get("/api/getfriendreviews", (req, res) => {
+    let userid = req.query.id;
+    const sqlSelect = "SELECT r.reviewid, r.userid, r.rating, r.date, r.content, m.name, m.movieid FROM Review r, Movies m WHERE r.userid = ? AND r.movieid = m.movieid order by r.rating desc, r.date desc;";
+    db.query(sqlSelect, [userid], (err, result) => {
+        res.send(result);
+    });
+});
+
+app.get("/api/getfriendreviewslimit", (req, res) => {
+    let userid = req.query.id;
+    const sqlSelect = "SELECT r.reviewid, r.userid, r.rating, r.date, r.content, m.name, m.movieid FROM Review r, Movies m WHERE r.userid = ? AND r.movieid = m.movieid order by r.rating desc, r.date desc limit 10;";
+    db.query(sqlSelect, [userid], (err, result) => {
+        res.send(result);
     });
 });
 
