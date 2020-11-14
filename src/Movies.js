@@ -26,18 +26,43 @@ function Movies() {
       <p><b>Our database has {numMovies} total movies to explore.</b></p>
       <div>
         {movieList.map((val) => {
-          return (
-            <div className="movie-block">
-    
-              <Link to={{ 
-                pathname: "/MoviePage", 
-                state: [{userid: userid, movieid: val.movieid, watched: 0}]  
-                }}> <img className="movie-img" src={val.poster}/> 
-              </Link>
-              <b>{val.name} </b> {val.year}
-    
-            </div>
-          );
+          console.log(val.poster);
+
+          if (val.poster === 'N/A'){
+            return (
+              <div className="movie-block">
+      
+                <Link to={{ 
+                  pathname: "/MoviePage", 
+                  state: [{userid: userid, movieid: val.movieid, watched: 0}]  
+                  }}> {/* <img className="movie-img" src={val.poster}/>  */}
+  
+                  <img className="movie-img" src='/nomovie.jpg' />
+  
+                </Link>
+                <b>{val.name} </b> {val.year}
+      
+              </div>
+            );
+          }
+          else{
+            return (
+              <div className="movie-block">
+      
+                <Link to={{ 
+                  pathname: "/MoviePage", 
+                  state: [{userid: userid, movieid: val.movieid, watched: 0}]  
+                  }}> <img className="movie-img" src={val.poster}/> 
+  
+                 {/*  <img className="movie-img" src={val.poster} onError="this.src='/nomovie.jpg'" /> */}
+  
+                </Link>
+                <b>{val.name} </b> {val.year}
+      
+              </div>
+            );
+          }
+          
         })}
       </div>
     </div>

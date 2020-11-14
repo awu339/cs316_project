@@ -5,6 +5,9 @@ import Nav from './Nav';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { values } from 'mobx';
+import image from './nomovie.jpg';
+
 
 function Home() {
   const [topMovies, setTopMovies] = useState([]);
@@ -35,17 +38,37 @@ function Home() {
       <h1>Top trending movies 2020</h1>
  
       {topMovies.map((movie) => {
-        return (
-        <div>
-          {movie.name} | Rating: {movie.rating}
-          <Link to={{ 
-            pathname: "/MoviePage", 
-            state: [{userid: userid, movieid: movie.movieid, watched: 1}]  
-            }}> 
-            <img className="movie-img" src={movie.poster} alt="poster"/>
-          </Link>
-        </div>
-        );
+        console.log(movie.poster);
+        if(movie.poster == "N/A"){
+          return (
+          
+            <div>
+              {movie.name} | Rating: {movie.rating}
+              <Link to={{ 
+                pathname: "/MoviePage", 
+                state: [{userid: userid, movieid: movie.movieid, watched: 1}]  
+                }}> 
+                <img className="movie-img" src={image}  alt="poster"/>
+              </Link>
+            </div>
+            );
+        }
+        else{  
+          return (
+          
+            <div>
+              {movie.name} | Rating: {movie.rating}
+              <Link to={{ 
+                pathname: "/MoviePage", 
+                state: [{userid: userid, movieid: movie.movieid, watched: 1}]  
+                }}> 
+                <img className="movie-img" src={movie.poster} alt="poster"/> 
+                
+              </Link>
+            </div>
+            );
+        }
+        
       })}
 
       <h1>Recent Movies</h1>

@@ -110,12 +110,14 @@ return (
       <div className = "movie-info">
         <h2>{val.name} </h2>
         <img className="movie-page-img" src = {val.poster} alt="Poster"/>
+        
         <br/> Year: {val.year} 
         <br/> Genre: {val.genre} 
         <br/> Synopsis: {val.plot} 
         <br/> Director: {val.director}
         <br/> Actors: {val.actors} 
         <br/> Runtime: {val.runtime}
+
         <br/> <Button outline color="primary" className="w-25" onClick={() => addFavorite(val.movieid)}>Add Favorite</Button>
       </div>
       );
