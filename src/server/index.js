@@ -104,6 +104,18 @@ app.get("/api/getfriends", (req, res) => {
     });
 }); */
 
+app.get("/api/checkmyFav", (req, res) => {
+    let userid = req.query.userid;
+    let movieid = req.query.id;
+    const sqlSelect = "SELECT m.name FROM Movies as m, Favorites as f WHERE f.userid = ? and m.movieid = ? and f.movieid = m.movieid;";
+    db.query(sqlSelect, [userid, movieid], (err, result) => {
+        
+        console.log("checking my fav");
+        res.send(result);
+        console.log(result);
+    });
+});
+
 app.get("/api/getfriendfav", (req, res) => {
     let userid = req.query.id;
     console.log(req.query);
