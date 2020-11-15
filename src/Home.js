@@ -19,7 +19,6 @@ function Home() {
       if (response != null){
         setTopMovies(response.data);
       }
-     
     }); 
   }, []);
 
