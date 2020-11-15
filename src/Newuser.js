@@ -20,6 +20,7 @@ function Newuser() {
     const submitUser = () => {
         console.log('here2');
         console.log(username);
+        console.log(type);
         Axios.post('http://localhost:3001/api/insert', {
             //userID: userID, 
             username: username, 
@@ -30,6 +31,18 @@ function Newuser() {
         });
         window.location.href = "http://localhost:3000/";
     };
+    
+
+
+  function toggle() {
+    var cont = document.getElementById('cont');
+    if (cont.style.display == 'block') {
+        cont.style.display = 'none';
+    }
+    else {
+        cont.style.display = 'block';
+    }
+}
 
   return (
     <div>
@@ -60,20 +73,33 @@ function Newuser() {
                 setPwd(e.target.value)
                 }} 
             />
-            <label>Admin Code:</label>
-            <input 
+
+                <label>Select User Type</label>
+                <p>
+            <select id="sel" onChange={toggle}>
+            <option value="1" >User</option>
+            <option value="2" selected>Admin</option>
+        </select>
+    </p>
+  
+    <div id="cont"
+    style={{display:"block"}}>
+
+        Admin Code: 
+        <input 
                 type="text" 
                 name="type" 
                 onChange={(e)=> {
-                  if(e.target.value == "cS3!6") {
+                  if(e.target.value == "cs316") {
                     setType("admin");
-                    console.log("admin: " + type);
                   } else {
                     setType("user");
-                    console.log("user: " + type);
                   }
                 }} 
             />
+    </div>
+    
+            
             <button onClick = {submitUser}>Submit</button>
 
              {/* {userList.map((val) => {
@@ -84,7 +110,10 @@ function Newuser() {
               </p>
               );
             })} */}
+
+            
         </div>
+        
     </div>
   );
 }
