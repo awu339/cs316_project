@@ -51,9 +51,8 @@ export default function Login() {
                 localStorage.setItem('userid', current_userid);
                 localStorage.setItem('type', current_type);
                 localStorage.setItem('username', username);
-
+                window.location.href = "http://localhost:3000/home";
             });
-            window.location.href = "http://localhost:3000/home";
         }
         else{
             console.log("WRONG!");

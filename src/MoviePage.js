@@ -131,7 +131,7 @@ return (
       console.log("rendering the movie");
       console.log(reviewexists);
       
-      if (reviewexists === undefined || reviewexists.length == 0){
+      if (reviewexists === undefined || reviewexists.length === 0){
         return (
         <div className = "movie-info">
           <h2>{val.name} </h2>
@@ -147,11 +147,11 @@ return (
           <h1>Leave a Review</h1>
           <label>Rating</label> 
           <input
-        type="number"
-        min="0"
-        max="5"
-        name="rating"
-        onChange={(e) => {
+            type="number"
+            min="0"
+            max="5"
+            name="rating"
+            onChange={(e) => {
           setRating(e.target.value);
         }}
       />
@@ -188,11 +188,11 @@ return (
           <br/>
           <br/> <label>New Rating</label> 
           <input
-        type="number"
-        min="0"
-        max="5"
-        name="rating"
-        onChange={(e) => {
+            type="number"
+            min="0"
+            max="5"
+            name="rating"
+            onChange={(e) => {
           setRating(e.target.value);
         }}
       />
@@ -205,7 +205,7 @@ return (
         }}
       />
       <br/><Button outline color="primary" className="w-25" onClick = {UpdateReview}>Update</Button>
-     <br/> <Button outline color="primary" className="w-25" onClick={() => deleteReview(reviewexists[0].reviewid)}>Delete</Button>
+      <br/> <Button outline color="primary" className="w-25" onClick={() => deleteReview(reviewexists[0].reviewid)}>Delete</Button>
 
             </p>
           );
@@ -217,9 +217,14 @@ return (
     
     {reviews.map((val) => {
       if (type == "admin"){
+        console.log("is this right");
+        console.log(val.username);
         return (
           <p>
-            User: {val.userid} | 
+            User: <Link to={{ 
+                pathname: "/FriendPage", 
+                state: [{userid: val.userid, username: val.username}]  
+                }}>{val.username}</Link> | 
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content} | 
@@ -234,7 +239,10 @@ return (
       else{
         return (
           <p>
-            User: {val.userid} | 
+            User: <Link to={{ 
+                pathname: "/FriendPage", 
+                state: [{userid: val.userid, username: val.username}]  
+                }}>{val.username}</Link> | 
             Rating: {val.rating} | 
             Date: {val.date}
             <br/> Review: {val.content}

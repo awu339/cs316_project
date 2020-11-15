@@ -104,16 +104,27 @@ app.get("/api/getfriends", (req, res) => {
     });
 }); */
 
-app.get("/api/getfriendfav", (req, res) => {
-    let userid = req.query.id;
+app.get("/api/getfriendfavmutual", (req, res) => {
+    let user1 = req.query.id;
+    let user2 = req.query.userid;
     console.log(req.query);
-    const sqlSelect = "SELECT m.name as name, m.year as year, m.plot as plot, f.movieid as movieid, f.watched as watched FROM Movies as m, Favorites as f WHERE f.userid = ? and f.movieid = m.movieid;";
-    db.query(sqlSelect, [userid], (err, result) => {
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.plot as plot, f2.movieid as movieid, f2.watched as watched FROM Movies as m, Favorites as f1, Favorites as f2 WHERE f1.userid = ? and f2.userid = ? and f2.movieid = m.movieid and f1.movieid = f2.movieid;";
+    db.query(sqlSelect, [user1, user2], (err, result) => {
         res.send(result);
         console.log(result);
     });
 });
 
+app.get("/api/getfriendfav", (req, res) => {
+    let user1 = req.query.id;
+    let user2 = req.query.userid;
+    console.log(req.query);
+    const sqlSelect = "SELECT m.name as name, m.year as year, m.plot as plot, f2.movieid as movieid, f2.watched as watched FROM Movies as m, Favorites as f1, Favorites as f2 WHERE f1.userid = ? and f2.userid = ? and f2.movieid = m.movieid and f1.movieid <> f2.movieid;";
+    db.query(sqlSelect, [user1, user2], (err, result) => {
+        res.send(result);
+        console.log(result);
+    });
+});
 app.get("/api/getfavorites", (req, res) => {
     let userid = req.query.id;
     const sqlSelect = "SELECT m.name as name, m.year as year, m.plot as plot, f.movieid as movieid, f.watched as watched FROM Movies as m, Favorites as f WHERE f.userid = ? and f.movieid = m.movieid;";
