@@ -320,6 +320,17 @@ app.get('/api/checkuser', (req, res) =>{
     });
 });
 
+app.get('/api/checkduplicate', (req, res) =>{
+    var usernameval = req.query.id;
+    console.log("check user dup " + usernameval);
+    const sqlCheckUser = "SELECT username FROM User WHERE username = ?";
+    db.query(sqlCheckUser, [usernameval], (err, result) =>{
+        if(err) console.log(err);
+        console.log(result);
+        res.send(result);
+    });
+});
+
 app.get('/api/getuserid', (req, res) =>{
     var usernameval = req.query.id;
     console.log("check user " + usernameval);

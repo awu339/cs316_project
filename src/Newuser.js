@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Axios from 'axios';
 import Nav from './Nav';
+var duplicate_user = "";
 
 function Newuser() {
     //const [userID, setUserID] = useState('');
@@ -29,9 +30,22 @@ function Newuser() {
         }).then(() => {
             alert("success");
         });
-        window.location.href = "http://localhost:3000/";
+        checkDuplicate();
+        //checkExist();
+        //window.location.href = "http://localhost:3000/";
     };
     
+   
+    function checkDuplicate(){
+      Axios.get("http://localhost:3001/api/checkduplicate?id=" + username)
+      .then((response) => {
+        console.log("check " + response.data[0].username);
+        duplicate_user = response.data[0].username;
+        if(duplicate_user.length > 0){
+          alert("Username already taken. Please choose another one.");
+        }
+    });
+    }
 
 
   function toggle() {

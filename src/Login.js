@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 var current_userid = "";
 var current_type = "";
 
+
 //localStorage.setItem('Userid',current_userid);
 
 export default function Login() {
@@ -35,9 +36,12 @@ export default function Login() {
             console.log(correctPassword);
             console.log(password===correctPassword);
             checkPassword();
+           
         }    
       });        
     }
+
+   
 
     function checkPassword() {
         if (password === correctPassword){
